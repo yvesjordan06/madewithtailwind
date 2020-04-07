@@ -1,0 +1,34 @@
+{
+  "name": "madewithtailwind",
+  "version": "1.0.0",
+  "description": "A curated list of component, templates, layoute and website build with tailwind css",
+  "author": "yvesjordan06",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "chart.js": "^2.9.3",
+    "nuxt": "^2.0.0",
+    "nuxt-purgecss": "^0.2.1",
+    "nuxtjs-mdi-font": "^1.0.2",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/eslint-config-typescript": "^1.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
