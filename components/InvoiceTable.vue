@@ -76,10 +76,16 @@
                 v-for="(field, index) in column"
                 :key="index"
                 :label="field.name"
-                :checked="!hiddenField.includes(field.name)"
-                @unchecked="hiddenField.push(field.name)"
+                :checked="
+                  !hiddenField.includes(field.json ? field.json : field.name)
+                "
+                @unchecked="
+                  hiddenField.push(field.json ? field.json : field.name)
+                "
                 @checked="
-                  hiddenField = hiddenField.filter((x) => x !== field.name)
+                  hiddenField = hiddenField.filter(
+                    (x) => x !== (field.json ? field.json : field.name)
+                  )
                 "
               />
             </div>
@@ -110,7 +116,7 @@
 
           <InvoiceTableData
             v-for="(item, index) in searchData"
-            :key="index"
+            :key="index + item"
             :checkable="checkable"
             :checked="checkAll"
             :orders="orders"
@@ -161,15 +167,15 @@ export default {
   computed: {
     orders() {
       return this.column
-        .map((x) => x.json || x.name)
+        .map((x) => (x.json ? x.json : x.name))
         .filter((x) => {
           return !this.hiddenField.includes(x)
         })
     },
     names() {
       return this.column
+        .filter((x) => !this.hiddenField.includes(x.json ? x.json : x.name))
         .map((x) => x.name)
-        .filter((x) => !this.hiddenField.includes(x))
     },
     searchData() {
       return !this.searchInput
