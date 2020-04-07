@@ -85,24 +85,6 @@ export default {
       return this.$store.state.invoice.invoices
     }
   },
-  async beforeCreate() {
-    const invoices = await this.$axios.get('http://127.0.0.1:1909/get/invoices')
-    const batches = await this.$axios.get('http://127.0.0.1:1909/get/batches')
-    /* const distributions = await this.$axios.get(
-       'http://127.0.01:1901/get/distributions'
-     ) */
-
-    this.$store.commit('clear')
-    invoices.data.forEach((i) =>
-      this.$store.commit(
-        'invoice/add',
-        new Invoice({
-          ...i,
-          batches: batches.data.filter((t) => t.invoice_no === i.invoice_no)
-        })
-      )
-    )
-  },
   methods: {
     addInvoice() {
       this.$router.push({

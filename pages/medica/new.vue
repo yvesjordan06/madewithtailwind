@@ -132,7 +132,7 @@ export default {
       this.sending = true
       try {
         const ip = await this.$axios.$post(
-          'http://192.168.0.102:1909/add/invoice',
+          'https://yvesjordan06.pythonanywhere.com/add/invoice',
           this.invoice
         )
         this.ip = ip

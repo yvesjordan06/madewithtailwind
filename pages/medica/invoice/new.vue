@@ -164,7 +164,7 @@ export default {
           batch.exp_date = convertToDate(batch.exp_date)
         }
         const ip = await this.$axios.$post(
-          'http://yvesjordan06.pythonanywhere.com/add/invoice',
+          'https://yvesjordan06.pythonanywhere.com/add/invoice',
           {
             invoice_data: {
               ...this.invoice,

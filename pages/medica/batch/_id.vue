@@ -133,7 +133,7 @@ export default {
 
       try {
         const response = await this.$axios.$post(
-          `http://yvesjordan06.pythonanywhere.com/make/distribution`,
+          `https://yvesjordan06.pythonanywhere.com/make/distribution`,
           payload
         )
         console.log(response)

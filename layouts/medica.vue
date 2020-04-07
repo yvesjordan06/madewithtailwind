@@ -23,7 +23,7 @@ export default {
   },
   async beforeCreate() {
     const invoices = await this.$axios.get(
-      `http://yvesjordan06.pythonanywhere.com/get/invoices`
+      `https://yvesjordan06.pythonanywhere.com/get/invoices`
     )
     console.log(invoices)
     this.$store.commit('invoice/clear')
