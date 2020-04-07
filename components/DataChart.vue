@@ -10,7 +10,7 @@
         <input v-model="end" type="date" class="ml-4 p-2" />
       </div>
     </div>
-    <div id="planet-chart"></div>
+    <div :id="id"></div>
   </div>
 </template>
 
@@ -40,7 +40,8 @@ export default {
     return {
       start: '',
       end: '',
-      unit: 'day'
+      unit: 'day',
+      id: new Date().getTime().toString()
     }
   },
   computed: {
@@ -76,17 +77,17 @@ export default {
   watch: {
     date_data() {
       // watch it
-      this.createChart('planet-chart')
+      this.createChart(this.id)
     }
   },
   mounted() {
-    this.createChart('planet-chart')
+    this.createChart(this.id)
   },
   created() {
-    const today = this.end_date || new Date()
-    const lastYear =
-      this.start_date ||
-      new Date(new Date().setFullYear(today.getFullYear() - 2))
+    const today = this.end_date ? new Date(this.end_date) : new Date()
+    const lastYear = this.start_date
+      ? new Date(this.start_date)
+      : new Date(new Date().setFullYear(today.getFullYear() - 2))
     this.end = [
       today.getFullYear(),
       leadingZero(today.getMonth() + 1),

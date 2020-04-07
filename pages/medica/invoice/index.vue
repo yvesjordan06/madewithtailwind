@@ -25,7 +25,8 @@
         { name: 'vessel' },
         { name: 'delivery' },
         { name: 'Invoice Date', json: 'invoice_date' },
-        { name: 'description' }
+        { name: 'description' },
+        { name: 'added', json:'created_on' }
       ]"
       :data="data"
       @add-click="addInvoice"

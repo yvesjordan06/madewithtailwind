@@ -3,11 +3,11 @@
     class="h-full text-sm text-gray-400 font-medium uppercase flex flex-col tracking-wide bg-gray-900 py-4 pr-2 w-56"
   >
     <nuxt-link to="/medica" class="relative flex items-center text-base">
-      <span class="mdi mdi-medical-bag text-green-500 text-4xl ml-4"></span>
-      <span class="font-bold tracking-tight">MEDiCA</span>
-      <span
+      <img src="/logo.jpg" class="w-16 rounded-full" alt="Cename logo">
+      <span class="font-bold tracking-tight ml-2">CENAME</span>
+     <!-- <span
         class="self-start text-xs font-light uppercase mdi mdi-stethoscope text-green-500"
-      ></span>
+      ></span>-->
     </nuxt-link>
     <nuxt-link
       to="/medica/invoice"
@@ -23,7 +23,7 @@
     >
 
     <nuxt-link
-      to="/medica/statistics"
+      to="/"
       class="px-2 py-4 border-l-8 border-transparent hover:border-green-500 flex"
 
     >
