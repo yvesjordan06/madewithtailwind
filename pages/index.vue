@@ -14,7 +14,7 @@
       </p>
       <p class="text-3xl font-sans tracking-wide text-gray-600 mt-2 ">
         and
-        <span class="text-green-500">{{ todayBatches.length }}</span>
+        <span class="text-green-500">{{ todayDistribution.length }}</span>
         Distributions today
       </p>
 
@@ -52,13 +52,13 @@
           <DateRangeStats
             type="bar"
             :label="[]"
-            start_date="2010-1-1"
+            :start_date="lastMonth"
             legend="Invoices Created"
             bar_color="#3af11c"
-            chart_unit="month"
+            chart_unit="day"
             :datasets="invoices"
             date_key="created_on"
-            class="text-xs bg-white rounded-lg shadow-lg"
+            class="text-xs bg-white rounded-lg shadow-lg p-2"
           ></DateRangeStats>
         </div>
         <div class="w-1/2 px-1">
@@ -77,9 +77,9 @@
         </div>
       </div>
       <div class="w-full  flex mt-4">
-        <div class="px-1">
+        <div class="px-1 w-1/2">
           <DataChart
-            class="bg-white rounded-lg shadow-lg"
+            class="bg-white rounded-lg shadow-lg p-2"
             legend="Distribution"
             :label="regions.map((x) => x.name.toUpperCase())"
             :label_ids="regions.map((x) => x.code)"
@@ -93,7 +93,7 @@
         </div>
         <div class="px-1 w-1/2">
           <DataChart
-            class="bg-white rounded-lg shadow-lg"
+            class="bg-white rounded-lg shadow-lg p-2"
             legend="Distribution"
             :label="regions.map((x) => x.name.toUpperCase())"
             :label_ids="regions.map((x) => x.code)"
@@ -141,32 +141,11 @@
         {name:'Invoice N°', json:'invoice_no'},
         {name:'Batch N°', json:'batch_no'},
       ]"
-        :data="distributions"
+        :data="todayDistribution"
         data_url="/medica/regions/"
         data_id="region"
       />
 
-      <p class="text-gray-600 font-bold mt-8" id="batch">Today's Batches</p>
-      <InvoiceTable
-        class="mb-16"
-        data_url="/medica/batch/"
-        data_id="batch_no"
-        no_add="true"
-        :column="[
-        { name: 'Batch N°', json: 'batch_no' },
-        { name: 'description' },
-        { name: 'Qty', json: 'quantity' },
-        { name: 'Ships', json: 'num_of_ships' },
-        { name: 'total' },
-        { name: 'region', json:'region_full' },
-        { name: 'Mfg Date', json: 'mfg_date' },
-        { name: 'Exp Date', json: 'exp_date' },
-        { name: 'Invoice N°', json: 'invoice_no' },
-        { name: 'status'},
-      ]"
-        :data="batches"
-        @add-click="addInvoice"
-      />
     </div>
   </div>
 </template>
@@ -185,7 +164,9 @@ export default {
     InvoiceTable
   },
   data() {
-    return {}
+    return {
+      lastMonth: new Date().setMonth(new Date().getMonth() - 1)
+    }
   },
   computed: {
     invoices() {
@@ -196,11 +177,11 @@ export default {
         (t) => formatDate(new Date(t.created_on)) === formatDate(new Date())
       )
     },
-    batches() {
-      return this.$store.getters['invoice/allBatches']
+    distributions() {
+      return this.$store.getters['invoice/getDistributions']
     },
-    todayBatches() {
-      return this.batches.filter(
+    todayDistribution() {
+      return this.distributions.filter(
         (t) =>
           formatDate(new Date(t.distribution_date)) === formatDate(new Date())
       )
@@ -208,9 +189,7 @@ export default {
     regions() {
       return this.$store.state.invoice.regions.slice(1)
     },
-    distributions() {
-      return this.$store.getters['invoice/getDistributions']
-    }
+
   },
   methods: {
     addInvoice() {

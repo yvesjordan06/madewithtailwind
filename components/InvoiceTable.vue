@@ -70,7 +70,7 @@
             ></div>
             <div
               v-if="filterMenuShown"
-              class="bg-white absolute top-0 mt-8 right-0 py-2 -mr-4 shadow-lg rounded-lg z-40"
+              class="bg-white flex flex-col absolute top-0 mt-8 right-0 py-2 -mr-4 shadow-lg rounded-lg z-40"
             >
               <Checkbox
                 v-for="(field, index) in column"
@@ -79,6 +79,7 @@
                 :checked="
                   !hiddenField.includes(field.json ? field.json : field.name)
                 "
+                class="p-4 py-2 border-b"
                 @unchecked="
                   hiddenField.push(field.json ? field.json : field.name)
                 "
@@ -213,4 +214,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

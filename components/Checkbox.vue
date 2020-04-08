@@ -2,7 +2,7 @@
   <button class="flex focus:outline-none" @click="toggle">
     <span v-if="isChecked" class="mdi mdi-checkbox-marked"></span>
     <span v-if="!isChecked" class="mdi mdi-checkbox-blank-outline"></span>
-    <span v-if="label" class="ml-2">{{ label }}</span>
+    <span v-if="label" class="ml-2 whitespace-no-wrap">{{ label }}</span>
   </button>
 </template>
 

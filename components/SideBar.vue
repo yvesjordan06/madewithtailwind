@@ -2,10 +2,10 @@
   <div
     class="h-full text-sm text-gray-400 font-medium uppercase flex flex-col tracking-wide bg-gray-900 py-4 pr-2 w-56"
   >
-    <nuxt-link to="/medica" class="relative flex items-center text-base">
-      <img src="/logo.jpg" class="w-16 rounded-full" alt="Cename logo">
+    <nuxt-link to="/" class="relative flex items-center text-base self-center">
+      <img src="/logo.jpg" class="w-16 rounded-full" alt="Cename logo" />
       <span class="font-bold tracking-tight ml-2">CENAME</span>
-     <!-- <span
+      <!-- <span
         class="self-start text-xs font-light uppercase mdi mdi-stethoscope text-green-500"
       ></span>-->
     </nuxt-link>
@@ -25,20 +25,21 @@
     <nuxt-link
       to="/"
       class="px-2 py-4 border-l-8 border-transparent hover:border-green-500 flex"
-
     >
-      <span class="mdi mdi-chart-bar mr-4"></span> STATistiques
+      <span class="mdi mdi-chart-bar mr-4"></span> STATistics
     </nuxt-link>
 
     <div class="flex flex-col">
       <button
-        @click="showRegions = !showRegions"
         class="px-2 py-4 border-l-8 flex border-transparent hover:border-green-500 focus:outline-none font-medium uppercase tracking-wide"
+        @click="showRegions = !showRegions"
       >
-        <p class="flex"><span class="mdi mdi-map-marker-radius mr-4"></span> Regions</p>
+        <p class="flex">
+          <span class="mdi mdi-map-marker-radius mr-4"></span> Regions
+        </p>
 
-        <span class="mdi mdi-menu-down ml-auto" v-if="!showRegions"></span>
-        <span class="mdi mdi-menu-up ml-auto" v-else></span>
+        <span v-if="!showRegions" class="mdi mdi-menu-down ml-auto"></span>
+        <span v-else class="mdi mdi-menu-up ml-auto"></span>
       </button>
       <div
         v-if="showRegions"
@@ -79,4 +80,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.nuxt-link-exact-active {
+  @apply border-green-500;
+}
+
+
+</style>

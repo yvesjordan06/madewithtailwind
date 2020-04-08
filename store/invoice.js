@@ -18,7 +18,7 @@ export class Invoice {
     this.vessel = vessel || ''
     this.invoice_date = invoice_date
     this.invoice_no = invoice_no
-    this.created_on = created_on
+    this.created_on = created_on || formatDate(new Date())
     this.description = batches.length.toString() + ' batches'
     this.invoice_info = invoice_info || {
       delivery,
