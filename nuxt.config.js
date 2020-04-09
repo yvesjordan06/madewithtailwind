@@ -2,7 +2,8 @@ export default {
   //mode: 'universal',
   mode: 'spa',
   router: {
-    base: '/'
+    base: '/',
+    mode: 'hash'
   },
   /*
    ** Headers of the page
@@ -47,8 +48,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     'nuxt-purgecss',
-    'nuxtjs-mdi-font',
-
+    'nuxtjs-mdi-font'
   ],
   purgeCSS: {
     // Overrides the default settings here
@@ -67,6 +67,6 @@ export default {
      ** You can extend webpack config here
      */
     extractCSS: true,
-    extend(config, ctx) { }
+    extend(config, ctx) {}
   }
 }

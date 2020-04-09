@@ -84,6 +84,9 @@ export default {
   computed: {
     data() {
       return this.$store.state.invoice.invoices
+    },
+    name() {
+      return this.$store.state.invoice.name
     }
   },
   methods: {

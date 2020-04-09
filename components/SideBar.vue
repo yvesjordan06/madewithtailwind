@@ -3,7 +3,11 @@
     class="h-full text-sm text-gray-400 font-medium uppercase flex flex-col tracking-wide bg-gray-900 py-4 pr-2 w-56"
   >
     <nuxt-link to="/" class="relative flex items-center text-base self-center">
-      <img src="/logo.jpg" class="w-16 rounded-full" alt="Cename logo" />
+      <img
+        src="~/assets/logo.jpg"
+        class="w-16 rounded-full"
+        alt="Cename logo"
+      />
       <span class="font-bold tracking-tight ml-2">CENAME</span>
       <!-- <span
         class="self-start text-xs font-light uppercase mdi mdi-stethoscope text-green-500"
@@ -84,6 +88,4 @@ export default {
 .nuxt-link-exact-active {
   @apply border-green-500;
 }
-
-
 </style>

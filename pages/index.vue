@@ -2,10 +2,10 @@
   <div>
     <div
       class=" relative bg-white p-16 flex flex-col text-5xl font-bold bg-cover overlay bg-right-top"
-      style="background-image:url('/images/undraw_reviewed_docs_neeb.svg')"
+      style="background-image:url('~assets/images/undraw_reviewed_docs_neeb.svg')"
     >
       <p class="font-sans tracking-wide">
-        Welcome Back <span class="text-green-500">!</span>
+        Welcome Back <span class="text-green-500 capitalize">{{name}}!</span>
       </p>
       <p class="text-4xl font-sans tracking-wide text-gray-800 mt-2 ">
         Today there have been
@@ -62,7 +62,6 @@
           ></DateRangeStats>
         </div>
         <div class="w-1/2 px-1">
-
           <DateRangeStats
             type="bar"
             :label="[]"
@@ -108,8 +107,7 @@
       </div>
     </div>
     <div class="mt-8">
-    <p class="text-3xl font-bold px-8">Today's Activities</p>
-
+      <p class="text-3xl font-bold px-8">Today's Activities</p>
 
       <p class="text-gray-600 font-bold mt-8" id="invoices">Today's Invoices</p>
       <InvoiceTable
@@ -120,14 +118,14 @@
         :no_delete="true"
         no_check="true"
         :column="[
-        { name: 'Invoice Number', json: 'invoice_no' },
-        { name: 'exporter' },
-        { name: 'stockage' },
-        { name: 'vessel' },
-        { name: 'delivery' },
-        { name: 'Invoice Date', json: 'invoice_date' },
-        { name: 'description' },
-      ]"
+          { name: 'Invoice Number', json: 'invoice_no' },
+          { name: 'exporter' },
+          { name: 'stockage' },
+          { name: 'vessel' },
+          { name: 'delivery' },
+          { name: 'Invoice Date', json: 'invoice_date' },
+          { name: 'description' }
+        ]"
         :data="todayInvoices"
         @add-click="addInvoice"
       />
@@ -137,15 +135,14 @@
         :no_add="true"
         :no_delete="true"
         :column="[
-        {name:'region', json:'region_full'},
-        {name:'Invoice N°', json:'invoice_no'},
-        {name:'Batch N°', json:'batch_no'},
-      ]"
+          { name: 'region', json: 'region_full' },
+          { name: 'Invoice N°', json: 'invoice_no' },
+          { name: 'Batch N°', json: 'batch_no' }
+        ]"
         :data="todayDistribution"
         data_url="/medica/regions/"
         data_id="region"
       />
-
     </div>
   </div>
 </template>
@@ -189,7 +186,9 @@ export default {
     regions() {
       return this.$store.state.invoice.regions.slice(1)
     },
-
+    name() {
+      return this.$store.state.invoice.name
+    }
   },
   methods: {
     addInvoice() {

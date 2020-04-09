@@ -63,6 +63,8 @@ export class Batch {
   }
 }
 export const state = () => ({
+  name: localStorage.getItem('name'),
+  host: localStorage.getItem('host'),
   invoices: [],
   regions: [
     { name: 'Overview', code: '' },
@@ -87,6 +89,22 @@ export const mutations = {
 
   clear(state) {
     state.invoices = []
+  },
+
+  resetApp(state) {
+    state.name = ''
+    state.host = ''
+    localStorage.clear()
+  },
+
+  updateHost(state, host) {
+    state.host = host
+    localStorage.setItem('host', host)
+  },
+
+  updateName(state, name) {
+    state.name = name
+    localStorage.setItem('name', name)
   },
 
   add(state, invoice) {
@@ -135,7 +153,13 @@ export const getters = {
   allBatches: (state) => {
     const batches = []
     state.invoices.forEach((invoice) => batches.push(...invoice.batches))
-    return batches.map((x) => ({ ...x, region_full: state.regions.find(y => y.code === x.region)?.name.toUpperCase(), status: x.region ? 'Distributed' : 'Pending' }))
+    return batches.map((x) => ({
+      ...x,
+      region_full: state.regions
+        .find((y) => y.code === x.region)
+        ?.name.toUpperCase(),
+      status: x.region ? 'Distributed' : 'Pending'
+    }))
   },
   getInvoice: (state) => (id) => {
     console.log(id)
@@ -151,9 +175,7 @@ export const getters = {
     return getters.allBatches.filter((batch) => batch.region === region)
   },
   getDistributions: (state, getters) => {
-    return getters.allBatches
-      .filter((batch) => !!batch.distribution_date)
-
+    return getters.allBatches.filter((batch) => !!batch.distribution_date)
   }
 }
 
