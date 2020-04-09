@@ -167,6 +167,8 @@ export const mutations = {
     )
     batch.region = region_code
     batch.distribution_date = formatDate(new Date())
+
+    state.invoices = [...state.invoices]
   },
   remove(state, invoice) {
     state.invoices.splice(state.list.indexOf(invoice), 1)
