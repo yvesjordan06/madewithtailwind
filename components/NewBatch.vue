@@ -17,7 +17,8 @@
 
       <textarea
         id="good_desc"
-        v-model="batch.description"
+        @input="update('description', $event.target.value)"
+        :value="value.description"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="text"
@@ -30,8 +31,9 @@
       <label for="exporter" class="w-2/12 uppercase">Batch Number</label>
       <input
         id="batch_number"
-        v-model="batch.batch_no"
-        :readonly="readonly"
+        @input="update('batch_no', $event.target.value)"
+        :value="value.batch_no"
+        :readonly="!is_new"
         class="w-full border rounded p-2 ml-8"
         type="number"
         name="exporter"
@@ -44,7 +46,8 @@
       >
       <input
         id="quantity_ship"
-        v-model="batch.quantity"
+        @input="update('quantity', $event.target.value)"
+        :value="value.quantity"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="number"
@@ -56,7 +59,8 @@
       <label for="vessel" class="w-2/12 uppercase">N° of ships</label>
       <input
         id="number_ship"
-        v-model="batch.num_of_ships"
+        @input="update('num_of_ships', $event.target.value)"
+        :value="value.num_of_ships"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="number"
@@ -64,7 +68,7 @@
         placeholder="Number of Ships"
       />
     </div>
-    <div class="mt-4 px-8 text-sm flex items-center">
+    <div class="mt-4 px-8 text-sm flex items-center hidden">
       <label for="vessel" class="w-2/12 uppercase"
         >Total Quantity (packs)</label
       >
@@ -80,19 +84,19 @@
     <div class="mt-4 px-8 text-sm flex items-center">
       <label class="w-2/12 uppercase">Manufactured Date</label>
       <input
-
-        v-model="batch.mfg_date"
+        @input="update('mfg_date', $event.target.value)"
+        :value="value.mfg_date"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="date"
-
         placeholder="Manufactured Date (date de facture) "
       />
     </div>
     <div class="mt-4 px-8 text-sm flex items-center">
       <label for="date" class="w-2/12 uppercase">Expiration Date</label>
       <input
-        v-model="batch.exp_date"
+        @input="update('exp_date', $event.target.value)"
+        :value="value.exp_date"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="date"
@@ -108,10 +112,18 @@ import { convertToDate } from '../store/invoice'
 
 export default {
   name: 'NewBatch',
-  props: ['batch', 'readonly'],
+  props: ['readonly', 'value', 'is_new'],
+  data: () => ({
+    batch: {}
+  }),
   computed: {
     get_total() {
       return this.batch.quantity * this.batch.num_of_ships
+    }
+  },
+  methods: {
+    update(key, value) {
+      this.$emit('input', { ...this.value, [key]: value })
     }
   }
 }

@@ -77,8 +77,9 @@
       <NewBatch
         v-for="(batch, index) in batches"
         :key="index"
-        :batch="batch"
+        v-model="batches[index]"
         class="mt-2"
+        :is_new="true"
         @close="batches = batches.filter((b, i) => i !== index)"
       />
 
@@ -148,6 +149,9 @@ export default {
   computed: {
     get_total() {
       return this.invoice.ship * this.invoice.pack
+    },
+    host() {
+      return this.$store.state.invoice.host
     }
   },
   mounted() {
@@ -163,24 +167,14 @@ export default {
           batch.mfg_date = convertToDate(batch.mfg_date)
           batch.exp_date = convertToDate(batch.exp_date)
         }
-        const ip = await this.$axios.$post(
-          'https://yvesjordan06.pythonanywhere.com/add/invoice',
-          {
-            invoice_data: {
-              ...this.invoice,
-              invoice_date: convertToDate(this.invoice.invoice_date)
-            },
-            batches: this.batches
-          }
-        )
+        const ip = await this.$axios.$post(`${this.host}/add/invoice`, {
+          invoice_data: {
+            ...this.invoice,
+            invoice_date: convertToDate(this.invoice.invoice_date)
+          },
+          batches: this.batches
+        })
         this.ip = ip
-        alert('Added Successfully')
-        console.log(ip)
-      } catch (e) {
-        console.log(e)
-        alert(`${e.message} occurred`)
-      } finally {
-        this.sending = false
         this.$store.commit(
           'invoice/add',
           new Invoice({
@@ -188,6 +182,14 @@ export default {
             batches: this.batches
           })
         )
+        alert('Added Successfully')
+        console.log(ip)
+      } catch (e) {
+        console.log(e)
+        alert(`${e.message} occurred`)
+      } finally {
+        this.sending = false
+
       }
     },
     addBatch() {

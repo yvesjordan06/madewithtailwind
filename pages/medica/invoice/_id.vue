@@ -8,7 +8,7 @@
         <label for="delivery" class="w-2/12 uppercase">Place of Delivery</label>
         <input
           id="delivery"
-          v-model="invoice.delivery"
+          v-model="updatedInvoice.delivery"
           :readonly="!editActive"
           class="w-full border rounded p-2 ml-8"
           type="text"
@@ -20,7 +20,7 @@
         <label for="exporter" class="w-2/12 uppercase">Exporter</label>
         <input
           id="exporter"
-          v-model="invoice.exporter"
+          v-model="updatedInvoice.exporter"
           :readonly="!editActive"
           class="w-full border rounded p-2 ml-8"
           type="text"
@@ -32,7 +32,7 @@
         <label for="stockage" class="w-2/12 uppercase">Stockage</label>
         <input
           id="stockage"
-          v-model="invoice.stockage"
+          v-model="updatedInvoice.stockage"
           :readonly="!editActive"
           class="w-full border rounded p-2 ml-8"
           type="text"
@@ -44,7 +44,7 @@
         <label for="vessel" class="w-2/12 uppercase">Vessel</label>
         <input
           id="vessel"
-          v-model="invoice.vessel"
+          v-model="updatedInvoice.vessel"
           :readonly="!editActive"
           class="w-full border rounded p-2 ml-8"
           type="text"
@@ -56,7 +56,7 @@
         <label for="date" class="w-2/12 uppercase">Invoice Date</label>
         <input
           id="date"
-          v-model="invoice.invoice_date"
+          v-model="updatedInvoice.invoice_date"
           :readonly="!editActive"
           class="w-full border rounded p-2 ml-8"
           type="date"
@@ -68,7 +68,7 @@
         <label for="date" class="w-2/12 uppercase">Invoice Number</label>
         <input
           id="invoice_number"
-          v-model="invoice.invoice_no"
+          v-model="updatedInvoice.invoice_no"
           :readonly="true"
           class="w-full border rounded p-2 ml-8"
           type="text"
@@ -76,48 +76,56 @@
           placeholder="Invoice Number (numero de facture) "
         />
       </div>
+      <div class="flex mt-4 justify-end">
+        <button
+          class="px-8 py-2 border rounded-lg bg-green-500 text-white"
+          :disabled="sending"
+          @click.prevent="fetchSomething"
+        >
+          {{ sending ? 'Saving ...' : 'Save' }}
+          <span v-if="!sending" class="mdi mdi-cloud-upload"></span>
+        </button>
+
+        <button
+          v-if="!editActive"
+          class="px-8 py-2 border rounded-lg bg-green-500 text-white mx-2"
+          :disabled="sending"
+          @click.prevent="editActive = true"
+        >
+          Edit <span class="mdi mdi-pencil"></span>
+        </button>
+
+        <button
+          v-if="!editActive"
+          class="px-8 py-2 border rounded-lg bg-red-500 text-white mx-2"
+          :disabled="sending"
+          @click.prevent="deleteInvoice"
+        >
+          {{deleting? 'Deleting...': 'Delete'}} <span class="mdi mdi-delete"></span>
+        </button>
+
+        <button
+          v-if="editActive"
+          class="px-8 py-2 border rounded-lg bg-green-500 text-white"
+          :disabled="sending"
+          @click.prevent="editActive = false"
+        >
+          Cancel <span class="mdi mdi-cancel"></span>
+        </button>
+      </div>
     </div>
 
     <div class="flex flex-col w-5/6 mx-auto shadow-lg mt-4 bg-white px-4 pb-4">
       <p class="text-2xl text-medium  px-2 mt-4">Batch</p>
       <SeeBatch
-        linked="true"
         v-for="(batch, index) in invoice.batches"
         :key="index"
+        linked="true"
         :batch="batch"
         :readonly="!editActive"
         class="mt-2"
         @close="invoice.batches = invoice.batches.filter((b, i) => i !== index)"
       />
-    </div>
-
-    <div class="flex mt-4 justify-end">
-      <button
-        class="px-8 py-2 border rounded-lg bg-green-500 text-white"
-        :disabled="sending"
-        @click.prevent="fetchSomething"
-      >
-        {{ sending ? 'Saving ...' : 'Save' }}
-        <span v-if="!sending" class="mdi mdi-cloud-upload"></span>
-      </button>
-
-      <button
-        v-if="!editActive"
-        class="px-8 py-2 border rounded-lg bg-green-500 text-white"
-        :disabled="sending"
-        @click.prevent="editActive = true"
-      >
-        Edit <span class="mdi mdi-pencil"></span>
-      </button>
-
-      <button
-        v-if="editActive"
-        class="px-8 py-2 border rounded-lg bg-green-500 text-white"
-        :disabled="sending"
-        @click.prevent="editActive = false"
-      >
-        Cancel <span class="mdi mdi-cancel"></span>
-      </button>
     </div>
   </form>
 </template>
@@ -126,6 +134,7 @@
 import { mapState } from 'vuex'
 import NewBatch from '../../../components/NewBatch'
 import SeeBatch from '../../../components/SeeBatch'
+import { convertToDate, Invoice } from '../../../store/invoice'
 export default {
   name: 'New',
   components: { SeeBatch, NewBatch },
@@ -133,37 +142,81 @@ export default {
   data() {
     return {
       sending: false,
+      deleting: false,
       editActive: false,
       invoice_number: this.$route.params.id,
-      invoice : {}
+      updatedInvoice: {}
     }
   },
   computed: {
     get_total() {
-      return this.invoice.ship * this.invoice.pack
+      return this.updated.ship * this.invoice.pack
     },
-
+    host() {
+      return this.$store.state.invoice.host
+    },
+    invoice() {
+      return (
+        this.$store.getters['invoice/getInvoice'](this.$route.params.id) || {}
+      )
+    }
+  },
+  watch: {
+    invoice(after, before) {
+      this.updatedInvoice = { ...after }
+    }
   },
   mounted() {
-    this.invoice = this.$store.getters['invoice/getInvoice'](this.$route.params.id)
+    this.updatedInvoice = { ...this.invoice }
   },
 
   methods: {
+    async deleteInvoice() {
+      if (confirm('Do you really want to delete? \n THIS IS NOT REVERSIBLE')) {
+        this.deleting = true
+        try {
+          const ip = await this.$axios.$delete(
+            `${this.host}/delete/invoice/${this.invoice.invoice_no}`
+          )
+
+          this.$store.commit('invoice/deleteInvoice', this.invoice)
+          alert('Deleted Successfully')
+          console.log(ip)
+        } catch (e) {
+          console.log(e)
+          alert(`${e} occurred`)
+        } finally {
+          this.deleting = false
+        }
+      }
+    },
     async fetchSomething() {
-      this.sending = true
-      try {
-        const ip = await this.$axios.$post(
-          'http://192.168.0.102:1909/add/invoice',
-          this.invoice
-        )
-        this.ip = ip
-        alert('Added Successfully')
-        console.log(ip)
-      } catch (e) {
-        console.log(e)
-        alert(`${e} occurred`)
-      } finally {
-        this.sending = false
+      if (
+        this.editActive &&
+        JSON.stringify(this.updatedInvoice) !== JSON.stringify(this.invoice)
+      ) {
+        this.sending = true
+        const payload = {
+          ...new Invoice({ ...this.updatedInvoice, invoice_info: null })
+            .invoice_info,
+          invoice_date: convertToDate(this.updatedInvoice.invoice_date)
+        }
+        try {
+          const ip = await this.$axios.$put(
+            `${this.host}/update/invoice`,
+            payload
+          )
+          this.ip = ip
+          this.$store.commit('invoice/updateInvoice', payload)
+          alert('Updated Successfully')
+          console.log(ip)
+        } catch (e) {
+          console.log(e)
+          alert(`${e} occurred`)
+        } finally {
+          this.sending = false
+          this.editActive = false
+        }
       }
     },
     addBatch() {

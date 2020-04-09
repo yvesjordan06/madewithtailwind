@@ -18,7 +18,7 @@ export class Invoice {
     this.vessel = vessel || ''
     this.invoice_date = formatDate(invoice_date)
     this.invoice_no = invoice_no
-    this.created_on = formatDate(new Date(created_on)) || formatDate(new Date())
+    this.created_on = created_on ? formatDate(new Date(created_on)) : formatDate(new Date())
     this.description = batches.length.toString() + ' batches'
     this.invoice_info = invoice_info || {
       delivery,
@@ -55,7 +55,7 @@ export class Batch {
     this.quantity = quantity
     this.num_of_ships = num_of_ships
     this.mfg_date = formatDate(new Date(mfg_date))
-    this.exp_date = formatDate( new Date(exp_date))
+    this.exp_date = formatDate(new Date(exp_date))
     this.invoice_no = invoice_no
     this.region = region
     this.distribution_date = formatDate(new Date(distribution_date))
@@ -111,24 +111,51 @@ export const mutations = {
     state.invoices.push(invoice)
   },
   updateInvoice(state, updatedInvoice) {
-    const invoice = state.invoices.indexOf(
+    console.log(updatedInvoice)
+    const invoice = state.invoices.find(
       (i) => i.invoice_no === updatedInvoice.invoice_no
     )
-    state.invoices[invoice] = { ...state.invoices[invoice], ...updatedInvoice }
+    const index = state.invoices.indexOf(invoice)
+    state.invoices[index] = new Invoice({
+      ...state.invoices[index],
+      ...updatedInvoice
+    })
+    state.invoices = [...state.invoices]
+  },
+  deleteInvoice(state, updatedInvoice) {
+    state.invoices = state.invoices.filter(
+      (x) => x.invoice_no !== updatedInvoice.invoice_no
+    )
+  },
+  deleteBatch(state, batch) {
+    const invoice = state.invoices.find(
+      (i) => i.invoice_no === batch.invoice_no
+    )
+    invoice.batches = invoice.batches.filter(
+      (b) => b.batch_no !== batch.batch_no
+    )
+
+    state.invoices = [...state.invoices]
   },
   updateBatch(state, updatedBatch) {
-    const invoice_index = state.invoices.indexOf((invoice) =>
-      invoice.batches.includes(
-        (_batch) => _batch.batch_no === updatedBatch.batch_no
-      )
+    console.log(updatedBatch)
+    const invoice_index = state.invoices.find(
+      (invoice) =>
+        !!invoice.batches.find(
+          (_batch) => _batch.batch_no === updatedBatch.batch_no
+        )
     )
-    const batch = state.invoices[invoice_index].batches.indexOf(
+    const batch = invoice_index.batches.find(
       (_batch) => _batch.batch_no === updatedBatch.batch_no
     )
-    state.invoices[invoice_index].batches[batch] = {
-      ...state.invoices[invoice_index].batches[batch],
+
+    const index_batch = invoice_index.batches.indexOf(batch)
+    invoice_index.batches[index_batch] = {
+      ...batch,
       ...updatedBatch
     }
+
+    state.invoices = [...state.invoices]
   },
   addDistribution(state, { region_code, batch_no }) {
     const invoice_search = state.invoices.find(
@@ -182,7 +209,7 @@ export const getters = {
 export const convertToDate = function(date) {
   const _date = new Date(date)
   return (
-    _date.getMonth() +
+    (_date.getMonth() +1) +
     '/' +
     _date.getDate() +
     '/' +
