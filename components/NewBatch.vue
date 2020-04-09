@@ -37,7 +37,8 @@
         class="w-full border rounded p-2 ml-8"
         type="number"
         name="exporter"
-        placeholder="Exporter"
+        placeholder="Batch Number"
+        required
       />
     </div>
     <div class="mt-4 px-8 text-sm flex items-center">
@@ -89,7 +90,7 @@
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="date"
-        placeholder="Manufactured Date (date de facture) "
+        placeholder="Manufactured Date "
       />
     </div>
     <div class="mt-4 px-8 text-sm flex items-center">
@@ -101,7 +102,7 @@
         class="w-full border rounded p-2 ml-8"
         type="date"
         name="date"
-        placeholder="Expired Date (date de facture) "
+        placeholder="Expiration Date "
       />
     </div>
   </div>

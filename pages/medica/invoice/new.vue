@@ -67,6 +67,7 @@
           class="w-full border rounded p-2 ml-8"
           type="text"
           name="invoice_number"
+          required
           placeholder="Invoice Number (numero de facture) "
         />
       </div>
@@ -159,10 +160,18 @@ export default {
   },
   methods: {
     async fetchSomething() {
+      if (!this.invoice.invoice_no) {
+        alert('Please an invoice number is needed to proceed')
+        return
+      }
       this.sending = true
       try {
         let batch
         for (batch of this.batches) {
+          if (!batch.batch_no) {
+            alert('Please a batch number is needed for every batch')
+            return
+          }
           console.log(batch.mfg_date)
           batch.mfg_date = convertToDate(batch.mfg_date)
           batch.exp_date = convertToDate(batch.exp_date)
@@ -189,7 +198,6 @@ export default {
         alert(`${e.message} occurred`)
       } finally {
         this.sending = false
-
       }
     },
     addBatch() {
