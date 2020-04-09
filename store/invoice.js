@@ -16,9 +16,9 @@ export class Invoice {
     this.exporter = exporter || ''
     this.stockage = stockage || ''
     this.vessel = vessel || ''
-    this.invoice_date = invoice_date
+    this.invoice_date = formatDate(invoice_date)
     this.invoice_no = invoice_no
-    this.created_on = created_on || formatDate(new Date())
+    this.created_on = formatDate(new Date(created_on)) || formatDate(new Date())
     this.description = batches.length.toString() + ' batches'
     this.invoice_info = invoice_info || {
       delivery,
@@ -54,12 +54,12 @@ export class Batch {
     this.batch_no = batch_no
     this.quantity = quantity
     this.num_of_ships = num_of_ships
-    this.mfg_date = mfg_date
-    this.exp_date = exp_date
+    this.mfg_date = formatDate(new Date(mfg_date))
+    this.exp_date = formatDate( new Date(exp_date))
     this.invoice_no = invoice_no
     this.region = region
-    this.distribution_date = distribution_date
-    this.created_at = created_at
+    this.distribution_date = formatDate(new Date(distribution_date))
+    this.created_at = formatDate(new Date(created_at))
   }
 }
 export const state = () => ({

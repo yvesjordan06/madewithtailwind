@@ -42,7 +42,9 @@
       <p class="font-bold text-2xl self-center">Transfer Batch to</p>
       <CustomSelect
         v-model="transfer_region"
-        :data="regions.map(x=>({label:x.name.toUpperCase(), value:x.code}))"
+        :data="
+          regions.map((x) => ({ label: x.name.toUpperCase(), value: x.code }))
+        "
         label="region"
         class="mt-4 px-8 text-sm"
       ></CustomSelect>
@@ -113,7 +115,6 @@ export default {
       return false
     },
     regions() {
-
       const result = Array.from(this.$store.state.invoice.regions)
       return result.slice(1)
     }

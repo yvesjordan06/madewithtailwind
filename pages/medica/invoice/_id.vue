@@ -69,7 +69,7 @@
         <input
           id="invoice_number"
           v-model="invoice.invoice_no"
-          :readonly="!editActive"
+          :readonly="true"
           class="w-full border rounded p-2 ml-8"
           type="text"
           name="invoice_number"

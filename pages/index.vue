@@ -1,11 +1,11 @@
 <template>
   <div>
     <div
+      id="hero"
       class=" relative bg-white p-16 flex flex-col text-5xl font-bold bg-cover overlay bg-right-top"
-      style="background-image:url('~assets/images/undraw_reviewed_docs_neeb.svg')"
     >
       <p class="font-sans tracking-wide">
-        Welcome Back <span class="text-green-500 capitalize">{{name}}!</span>
+        Welcome Back <span class="text-green-500 capitalize">{{ name }}!</span>
       </p>
       <p class="text-4xl font-sans tracking-wide text-gray-800 mt-2 ">
         Today there have been
@@ -109,7 +109,7 @@
     <div class="mt-8">
       <p class="text-3xl font-bold px-8">Today's Activities</p>
 
-      <p class="text-gray-600 font-bold mt-8" id="invoices">Today's Invoices</p>
+      <p id="invoices" class="text-gray-600 font-bold mt-8">Today's Invoices</p>
       <InvoiceTable
         class="mt-4 mb-16"
         :checkable="false"
@@ -130,7 +130,7 @@
         @add-click="addInvoice"
       />
 
-      <p class="text-gray-600 font-bold mt-8" id="dist">Today's Distribution</p>
+      <p id="dist" class="text-gray-600 font-bold mt-8">Today's Distribution</p>
       <InvoiceTable
         :no_add="true"
         :no_delete="true"
@@ -200,4 +200,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+#hero {
+  background-image: url('~assets/images/undraw_reviewed_docs_neeb.svg');
+}
+</style>

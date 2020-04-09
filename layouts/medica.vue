@@ -39,7 +39,7 @@
           </p>
           <input
             v-model="host"
-            type="ip"
+            type="text"
             placeholder="Host Adress"
             class=" mt-2 border w-full px-4 py-2 rounded-lg border-green-500 focus:outline-none"
           />
@@ -62,12 +62,10 @@
 </template>
 
 <script>
-import NavBar1 from '../components/NavBar1.vue'
 import SideBar from '../components/SideBar.vue'
 import { Invoice } from '../store/invoice'
 export default {
   components: {
-    NavBar1,
     SideBar
   },
   data: () => ({
@@ -97,8 +95,8 @@ export default {
     }
   },
   watch: {
-    hostUrl(a, b) {
-
+    hostUrl(a, _) {
+      this.ignoreHostChange = this.ignoreHostChange || !a
       if (!this.ignoreHostChange) {
         const retry = confirm(
           'The database host has been change, will you like to reload data ?'
@@ -106,20 +104,19 @@ export default {
         if (retry) {
           this.fetchData()
         }
-      }else {
+      } else {
         this.ignoreHostChange = false
       }
     }
   },
   created() {
-    if(!this.isFirstTime) {
+    if (!this.isFirstTime) {
       this.fetchData().then()
-    }else{
+    } else {
       this.ignoreHostChange = true
     }
   },
   methods: {
-
     setup() {
       if (this.name && this.host) {
         this.$store.commit('invoice/updateHost', this.host)
