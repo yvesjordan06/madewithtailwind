@@ -1,28 +1,19 @@
 <template>
-  <div class="bg-gray-200  min-h-screen flex flex-col">
-    <JobboroNav></JobboroNav>
-    <div class="flex-grow mb-16">
+  <div class="bg-blue-100  min-h-screen flex flex-col">
+    <JobboroNav class="bg-white py-2 px-8 fixed z-50"></JobboroNav>
+    <div class="flex-grow mt-16 ">
       <nuxt />
     </div>
-    <div
-      class="w-full fixed py-1 px-4 bottom-0 flex justify-between bg-white text-sm"
-    >
-      <p class="text-gray-700">
-        Design with <span class="mdi mdi-heart text-red-500"></span> by
-        <a href="https://t.me/hirohamada4" target="blank">Hiro</a>
-      </p>
-      <div class="flex">
-        <p>Medica Version 1.0</p>
-        <button class="mdi mdi-settings ml-4 text-gray-600"></button>
-      </div>
-    </div>
+    <JobboroFooter class="px-8 py-16 bg-blue-800"></JobboroFooter>
   </div>
 </template>
 
 <script>
 import JobboroNav from '../components/JobboroNav'
+import JobboroFooter from '../components/JobboroFooter'
 export default {
   components: {
+    JobboroFooter,
     JobboroNav
   }
 }

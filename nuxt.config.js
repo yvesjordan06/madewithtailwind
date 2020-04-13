@@ -3,7 +3,7 @@ export default {
   mode: 'spa',
   router: {
     base: '/',
-    mode: 'hash'
+    mode: 'history'
   },
   /*
    ** Headers of the page

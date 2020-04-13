@@ -2,7 +2,7 @@
   <div class="p-16 bg-white">
     <p class="text-3xl font-bold">Settings</p>
     <p class="text-xl font-bold mt-8">App Configuration</p>
-    <div class="flex items-stretch border mt-4 rounded-lg border-green-500">
+    <div class="flex items-stretch border mt-4 rounded-lg overflow-hidden border-green-500">
       <p class="bg-gray-300 py-2 px-8">Your Name</p>
       <input
         v-model="new_name"
@@ -17,7 +17,7 @@
       </button>
     </div>
 
-    <div class="flex items-stretch border rounded-lg border-green-500 mt-4">
+    <div class="flex items-stretch border rounded-lg overflow-hidden border-green-500 mt-4">
       <p class="bg-gray-300 py-2 px-8">Database Host</p>
       <input
         v-model="new_host"
@@ -32,7 +32,7 @@
       </button>
     </div>
 
-    <p class="text-xl font-bold mt-8">App Configuration</p>
+    <p class="text-xl font-bold mt-8">App Settings</p>
     <div class="border rounded-lg p-8 mt-4">
       <p class="text-gray-700 font-bold">Reload data</p>
       <p class="text-gray-600 mt-2">

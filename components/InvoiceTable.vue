@@ -157,6 +157,7 @@ export default {
   },
   data() {
     return {
+      myData: [],
       searchInput: '',
       hiddenField: [],
       filterMenuShown: false,
@@ -180,8 +181,8 @@ export default {
     },
     searchData() {
       return !this.searchInput
-        ? this.data
-        : this.data.filter(
+        ? this.myData
+        : this.myData.filter(
             (x) =>
               Array.from(Object.values(x)).filter((y) =>
                 y
@@ -192,16 +193,25 @@ export default {
           )
     }
   },
+  watch: {
+    data(newval) {
+      this.myData = Array.from(newval)
+    }
+  },
+  mounted() {
+    this.selected = this.checked
+    this.myData = Array.from(this.data)
+  },
   methods: {
     sortBy(val) {
       if (this.downSorted.includes(val)) {
         this.downSorted = this.downSorted.filter((x) => x !== val)
         this.upSorted.push(val)
-        return this.data.sort((a, b) => (a[val] > b[val] ? 1 : -1))
+        this.myData.sort((a, b) => (a[val] > b[val] ? 1 : -1))
       } else {
         this.upSorted = this.upSorted.filter((x) => x !== val)
         this.downSorted.push(val)
-        return this.data.sort((a, b) => (a[val] < b[val] ? 1 : -1))
+        this.myData.sort((a, b) => (a[val] < b[val] ? 1 : -1))
       }
     },
     navigate(item) {
@@ -214,6 +224,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
