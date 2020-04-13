@@ -15,12 +15,40 @@ export default {
   components: {
     JobboroFooter,
     JobboroNav
+  },
+  head() {
+    return {
+      script: [
+        {
+          src:
+            'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+        }
+      ],
+      link: [
+        {
+          rel: 'stylesheet',
+          href:
+            'https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap'
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style>
 .nuxt-progress {
-  @apply bg-green-500;
+  @apply bg-jobprimary;
 }
+.title {
+  @apply text-3xl font-black leading-tight uppercase text-jobtitle font-title;
+}
+
+.subtitle {
+  @apply text-xl font-black leading-tight text-jobtitle font-title;
+}
+
+  .text {
+    @apply text-sm leading-tight
+  }
 </style>

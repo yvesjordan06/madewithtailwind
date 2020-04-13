@@ -6,9 +6,7 @@
         class="w-32 h-10 object-cover"
         alt="Jobboro logo"
       />
-      <span class="absolute  text-xs -mt-2 font-medium right-0 -mr-8 "
-        >By Properlise</span
-      >
+
     </nuxt-link>
 
     <div class="flex-grow flex justify-end items-center text-sm font-thin">
@@ -74,6 +72,6 @@ export default {
 }
 
 .nuxt-link-active {
-  @apply text-black font-bold;
+  @apply text-jobhover font-bold;
 }
 </style>
