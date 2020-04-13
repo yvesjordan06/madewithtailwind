@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex min-h-screen flex-col">
     <header class="bg-orange-600 px-8 py-4 text-white flex items-center">
       <nuxt-link to="/unik-juice" class="juice flex-grow text-2xl font-bold"
         >Unik Juice</nuxt-link
@@ -10,11 +10,11 @@
     </header>
 
     <div
-      class="hero bg-cover bg-center relative px-8 py-16"
+      class="flex-grow hero bg-cover bg-center relative px-8 py-16 flex flex-col"
       style="background-image: url('/images/unik-juice.jpg')"
     >
       <div class="overlay"></div>
-      <div class="content flex flex-col">
+      <div class="content flex flex-col flex-grow">
         <div class="flex justify-between">
           <p class="juice text-orange-600 text-4xl font-black">Du verger au jus</p>
           <div class="flex text-xl">
@@ -37,7 +37,7 @@
           <button class="bg-orange-600 py-2 juice mt-2 text-white rounded-full w-40 text-center">Button</button>
 
         </div>
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center flex-grow justify-center ">
           <p class="text-orange-600 text-6xl font-black font-sans">WELCOME</p>
           <button style="background-color: rgba(255,255,255,0.5)" class=" py-2 juice mt-4 text-4xl font-bold text-gray-700 rounded-full px-16 ">Commander</button>
         </div>
@@ -71,7 +71,7 @@ export default {
   font-family: 'Marck Script', cursive;
 }
   .overlay {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(255,255,255,0.125);
     @apply absolute inset-0 z-0
   }
 
