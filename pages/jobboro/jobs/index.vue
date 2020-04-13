@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <div class="py-32 relative max-w-5xl mx-auto">
+  <div class="bg-blue-100">
+    <div class="py-32 relative max-w-5xl mx-auto ">
       <div
         class="bottom-0 absolute  bg-white shadow-lg rounded-lg py-8 flex flex-col left-0 right-0 mx-8 items-center mt-2 text-base border"
         style="transform: translateY(50%)"

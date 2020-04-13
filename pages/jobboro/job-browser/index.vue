@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative py-24 px-8 text-2xl text-gray-700 w-full font-bold">
+    <div class="relative py-24 px-8 text-2xl text-gray-700 w-full bg-blue-100  font-bold">
       <div class="w-1/2 ">
         <p>Salut Antoine !</p>
         <p>Décolle ta carrière en trouvant ton future job ici.</p>

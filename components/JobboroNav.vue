@@ -14,7 +14,7 @@
     <div class="flex-grow flex justify-end items-center text-sm font-thin">
       <nuxt-link to="#" class="ml-8">Pourquoi Jobboro ?</nuxt-link>
       <nuxt-link to="/jobboro/job-browser" class="ml-8">Jobs Browser</nuxt-link>
-      <nuxt-link to="/jobboro/job-browser" class="ml-8"
+      <nuxt-link to="#" class="ml-8"
         >Trouvez des candidats</nuxt-link
       >
       <nuxt-link to="/jobboro/jobs" class="ml-8">Annonces d'emploie</nuxt-link>

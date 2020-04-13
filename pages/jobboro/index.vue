@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex py-8">
+    <div class="flex bg-blue-100 py-8">
       <div class="w-1/2 py-16 px-8">
         <p class="text-2xl font-bold uppercase leading-tight pr-48">
           Avec Jobboro <br />
@@ -116,7 +116,7 @@
         </p>
       </div>
     </div>
-    <div class="flex w-full">
+    <div class="flex w-full bg-blue-100">
       <div class="w-1/2 py-16 px-8">
         <p class="text-3xl text-gray-700">
           Trouve ton stage ou ton future job avec un recruteur qui cardre avec
@@ -145,7 +145,7 @@
               Assurance
             </button>
           </div>
-          <div class="mt-2 flex">
+          <div class="mt-2 flex">  </router>
             <button class="bg-indigo-700 rounded-full py-2 flex-grow">
               Finance
             </button>
@@ -194,7 +194,7 @@
       </button>
     </div>
 
-    <div class="flex flex-row-reverse py-8">
+    <div class="flex flex-row-reverse py-8 bg-blue-100">
       <div class="w-1/2 px-16 flex flex-col justify-center items-center">
         <p class="text-2xl font-medium text-gray-700">
           Chez Jobboro, un recruteur est un accélérateur d'experiences pour les jeunes.
