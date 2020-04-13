@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-100  min-h-screen flex flex-col">
+  <div class="bg-white  min-h-screen flex flex-col">
     <JobboroNav class="bg-white py-2 px-8 fixed z-50"></JobboroNav>
     <div class="flex-grow mt-16 ">
       <nuxt />

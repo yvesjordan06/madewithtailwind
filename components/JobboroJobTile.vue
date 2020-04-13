@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="flex justify-between mb-2" v-if="show_options && show_status">
+  <router>
+    <div class="flex justify-between mb-2" v-if="show_options || show_status">
       <span class="text-indigo-700" v-if="show_status">En pause</span>
       <button class="mdi mdi-dots-horizontal text-gray-500 text-3xl" v-if="show_options"></button>
     </div>
@@ -18,11 +18,11 @@
         <p>Publié le</p>
       </div>
     </div>
-    <div class="flex justify-center item-center ml-32">
-      <button class="bg-indigo-700 text-white font-bold py-2 px-16 rounded-lg">Voir le job</button>
+    <div class="flex justify-center item-center ml-32" v-if="can_apply">
+      <nuxt-link to="/jobboro/job-browser/see-job" class="bg-indigo-700 text-white font-bold py-2 px-16 rounded-lg">Voir le job</nuxt-link>
     </div>
   </div>
-  </div>
+  </router>
 </template>
 
 <script>
@@ -31,8 +31,9 @@ export default {
   props: {
     no_image: { type: Boolean, default: false },
     show_status: { type: Boolean, default: false },
-    show_options: { type: Boolean, default: false }
-  }
+    show_options: { type: Boolean, default: false },
+    can_apply: { type: Boolean, default: true }
+  },
 }
 </script>
 
