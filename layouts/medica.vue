@@ -91,7 +91,7 @@ export default {
       return this.$store.state.invoice.name
     },
     isFirstTime() {
-      return !(!this.appName && this.hostUrl)
+      return !this.appName && !this.hostUrl
     }
   },
   watch: {
