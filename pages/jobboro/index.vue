@@ -194,7 +194,7 @@
         Tu es jeune, un étudiant ou un jeune chômeur ayant peu ou pas
         d'experience professionnelle, alors, vient construire ta carrière ici.
       </p>
-     <JobboroButton label="TROUVE TOI UN TRAVAIL" ></JobboroButton>
+     <JobboroButton label="TROUVE TOI UN TRAVAIL" class="text-center"></JobboroButton>
     </div>
     </div>
 
