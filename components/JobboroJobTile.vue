@@ -4,33 +4,36 @@
       <span v-if="show_status" class="text-indigo-700">En pause</span>
       <button
         v-if="show_options"
-        class="mdi mdi-dots-horizontal text-gray-500 text-3xl"
+        class="text-3xl text-gray-500 mdi mdi-dots-horizontal"
       ></button>
     </div>
-    <div class="flex items-center">
-      <div v-if="!no_image" class="self-stretch border w-32 mr-8">
+    <div class="flex flex-col lg:items-center lg:flex-row">
+      <div v-if="!no_image" class="self-stretch mr-8 border lg:w-48">
         <img
           src="~/assets/images/404.svg"
           alt="Job Image"
-          class="w-full h-full object-cover"
+          class="object-cover w-full h-full"
         />
       </div>
-      <div class="flex flex-col  text-gray-700 flex-grow">
-        <p class="text-gray-800 font-bold">
+      <div class="flex flex-col flex-grow text-gray-700 lg:mt-0">
+        <p class="font-bold text-gray-800 subtitle">
           Titre de recrutement, du poste recherché
         </p>
-        <p class="mt-2">Nom de l'entreprise qui recrute</p>
-        <div class="flex justify-between text-xs w-full mt-2">
+        <p class="mt-4">Nom de l'entreprise qui recrute</p>
+        <div class="justify-between w-full mt-4 text-xs lg:flex">
           <p>Type de contrat</p>
           <p>Lieu du job</p>
           <p>Secteur d'activité</p>
           <p>Publié le</p>
         </div>
       </div>
-      <div v-if="can_apply" class="flex justify-center item-center ml-32">
+      <div
+        v-if="can_apply"
+        class="mt-8 lg:flex lg:justify-center lg:ml-32 lg:item-center lg:mt-0"
+      >
         <nuxt-link
           to="/jobboro/job-browser/see-job"
-          class="bg-indigo-700 text-white font-bold py-2 px-16 rounded-lg"
+          class="block w-full py-2 font-bold text-center text-white bg-jobprimary hover:bg-jobhover rounded-full lg:px-8 lg:w-auto "
           >Voir le job</nuxt-link
         >
       </div>

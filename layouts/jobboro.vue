@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white  min-h-screen flex flex-col">
-    <JobboroNav class="bg-white py-2 px-8 fixed z-50"></JobboroNav>
+  <div class="flex flex-col min-h-screen bg-white">
+    <JobboroNav class="fixed z-50 px-8 py-2 bg-white"></JobboroNav>
     <div class="flex-grow mt-16 ">
       <nuxt />
     </div>
@@ -41,14 +41,14 @@ export default {
   @apply bg-jobprimary;
 }
 .title {
-  @apply text-3xl font-black leading-tight uppercase text-jobtitle font-title;
+  @apply text-3xl font-black leading-tight  text-jobtitle font-title;
 }
 
 .subtitle {
   @apply text-xl font-black leading-tight text-jobtitle font-title;
 }
 
-  .text {
-    @apply text-sm leading-tight
-  }
+.text {
+  @apply text-sm leading-tight;
+}
 </style>

@@ -18,7 +18,9 @@ export class Invoice {
     this.vessel = vessel || ''
     this.invoice_date = formatDate(invoice_date)
     this.invoice_no = invoice_no
-    this.created_on = created_on ? formatDate(new Date(created_on)) : formatDate(new Date())
+    this.created_on = created_on
+      ? formatDate(new Date(created_on))
+      : formatDate(new Date())
     this.description = batches.length.toString() + ' batches'
     this.invoice_info = invoice_info || {
       delivery,
@@ -65,6 +67,10 @@ export class Batch {
 export const state = () => ({
   name: localStorage.getItem('name'),
   host: localStorage.getItem('host'),
+  jobboro: {
+    user: null,
+    recruteur: false
+  },
   invoices: [],
   regions: [
     { name: 'Overview', code: '' },
@@ -105,6 +111,15 @@ export const mutations = {
   updateName(state, name) {
     state.name = name
     localStorage.setItem('name', name)
+  },
+
+  jobboroLogin(state, user) {
+    state.jobboro = { ...state.jobboro, user, recruteur: user ? user.entreprise: false }
+    localStorage.setItem('user', JSON.stringify(user))
+  },
+
+  jobboroLogout(state) {
+    state.jobboro = { ...state.jobboro, user: null }
   },
 
   add(state, invoice) {
@@ -211,7 +226,8 @@ export const getters = {
 export const convertToDate = function(date) {
   const _date = new Date(date)
   return (
-    (_date.getMonth() +1) +
+    _date.getMonth() +
+    1 +
     '/' +
     _date.getDate() +
     '/' +

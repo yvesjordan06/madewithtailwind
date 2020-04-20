@@ -33,7 +33,7 @@
           >
           <span class="w-10/12">N/A</span>
         </div>
-        <button class="mt-4 py-4 px-8 bg-green-500 font-bold text-white">
+        <button class="mt-4 py-4 px-8 shadow bg-green-500 font-bold text-white">
           Check for updates
         </button>
       </div>

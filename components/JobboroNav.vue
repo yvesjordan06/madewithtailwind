@@ -1,57 +1,70 @@
 <template>
-  <div class="flex w-full item-center ">
-    <nuxt-link to="/jobboro" class="relative">
-      <img
-        src="~/assets/jobboro_logo.png"
-        class="w-32 h-10 object-cover"
-        alt="Jobboro logo"
-      />
+  <div class="w-full">
+    <div class="flex screen-size item-center ">
+      <nuxt-link :to="userEntreprise ? '/jobboro/recruteur' : '/jobboro'" class="relative">
+        <img
+          src="~/assets/jobboro_logo.png"
+          class="object-cover w-32 h-10"
+          alt="Jobboro logo"
+        />
+      </nuxt-link>
 
-    </nuxt-link>
-
-    <div class="flex-grow flex justify-end items-center text-sm font-thin">
-      <nuxt-link to="#" class="ml-8">Pourquoi Jobboro ?</nuxt-link>
-      <nuxt-link to="/jobboro/job-browser" class="ml-8">Jobs Browser</nuxt-link>
-      <nuxt-link to="#" class="ml-8"
-        >Trouvez des candidats</nuxt-link
-      >
-      <nuxt-link to="/jobboro/jobs" class="ml-8">Annonces d'emploie</nuxt-link>
-      <nuxt-link to="#" class="ml-8 hidden">S'inscrire</nuxt-link>
-      <nuxt-link to="#" class="ml-8 hidden">Se Connecter</nuxt-link>
-      <nuxt-link
-        to="#"
-        class="ml-8 uppercase text-white bg-indigo-700 rounded-full px-4 py-2 font-medium hidden"
-        >JE SUIS RECRUTEUR</nuxt-link
-      >
-    </div>
-    <div class="relative">
-      <div id="user-profile" class="flex items-center cursor-pointer">
-        <span
-          class="ml-12 border-2 w-10 h-10 rounded-full mdi mdi-account-outline text-2xl flex border-gray-600 text-gray-600 items-center justify-center"
-        ></span>
-        <p class="ml-2 text-gray-800 text-sm font-bold">Antoine U. MAGA</p>
+      <div class="flex items-center justify-end flex-grow text-sm font-thin">
+        <nuxt-link to="/jobboro/pourquoi" class="ml-8">Pourquoi Jobboro ?</nuxt-link>
+        <nuxt-link v-if="!recruteur && !userEnterprise" to="/jobboro/job-browser" class="ml-8"
+          >Jobs Browser</nuxt-link
+        >
+        <nuxt-link v-if="recruteur || userEnterprise" to="#" class="ml-8"
+          >Trouvez des candidats</nuxt-link
+        >
+        <nuxt-link v-if="recruteur && userEnterprise" to="/jobboro/jobs" class="ml-8"
+          >Annonces d'emploie</nuxt-link
+        >
+        <nuxt-link v-if="!user" to="/jobboro/register" class=" ml-8">S'inscrire</nuxt-link>
+        <nuxt-link v-if="!user" to="/jobboro/login" class=" ml-8">Se Connecter</nuxt-link>
+        <button
+          v-if="!user"
+          class="px-4 py-2 ml-8 font-medium text-white uppercase bg-jobprimary rounded-full"
+          @click="recruteurMode"
+        >
+          JE SUIS RECRUTEUR
+        </button>
       </div>
-      <div id="user-menu" class="absolute text-gray-700    pt-4 hidden  w-full">
-        <nuxt-link
-          to="#"
-          class="py-4 block border-b bg-white text-center hover:bg-gray-200 px-8 "
-          >Mon Profil</nuxt-link
-        >
-        <nuxt-link
-          to="#"
-          class="py-4 block border-b bg-white text-center hover:bg-gray-200 px-8 "
-          >Tableau de bord</nuxt-link
-        >
-        <nuxt-link
-          to="#"
-          class="py-4 block border-b bg-white text-center hover:bg-gray-200 px-8 "
-          >Mes paramétres</nuxt-link
-        >
-        <nuxt-link
-          to="#"
-          class="py-4 block border-b bg-white text-center hover:bg-gray-200 px-8 "
-          >Se déconnecter</nuxt-link
-        >
+      <div v-if="user" class="relative">
+        <div id="user-profile" class="flex items-center cursor-pointer">
+          <div
+            class="p-5 rounded-full ml-12 relative text-2xl text-gray-600 border-2 border-gray-600"
+          >
+            <span
+              class=" hiro-center  rounded-full mdi mdi-account-outline"
+            ></span>
+          </div>
+
+          <p class="ml-2">{{user.name}}</p>
+        </div>
+        <div id="user-menu" class="absolute hidden w-full pt-4 text-gray-700">
+          <nuxt-link
+            to="#"
+            class="block px-8 py-4 text-center bg-white border-b hover:bg-gray-200 "
+            >Mon Profil</nuxt-link
+          >
+          <nuxt-link
+            to="#"
+            class="block px-8 py-4 text-center bg-white border-b hover:bg-gray-200 "
+            >Tableau de bord</nuxt-link
+          >
+          <nuxt-link
+            to="#"
+            class="block px-8 py-4 text-center bg-white border-b hover:bg-gray-200 "
+            >Mes paramétres</nuxt-link
+          >
+          <button
+
+            class="w-full px-8 py-4 text-center bg-white border-b hover:bg-gray-200 "
+            @click="disconnect"
+            >Se déconnecter</button
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -59,7 +72,32 @@
 
 <script>
 export default {
-  name: 'JobboroNav'
+  name: 'JobboroNav',
+  data() {
+    return {
+      recruteur: false
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.invoice.jobboro.user
+    },
+    userEnterprise() {
+      return this.$store.state.invoice.jobboro.recruteur
+    }
+  },
+  methods: {
+    recruteurMode() {
+      this.recruteur = true
+      this.$router.push('/jobboro/recruteur')
+    },
+    disconnect() {
+      this.$store.commit(
+        'invoice/jobboroLogout'
+      )
+    }
+  },
+
 }
 </script>
 

@@ -1,9 +1,29 @@
 /* purgecss start ignore */
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
+@tailwind base;
+@tailwind components;
 /* purgecss end ignore */
-@import 'tailwindcss/utilities';
+.screen-size {
+  @apply max-w-5xl px-12 mx-auto;
+}
+@tailwind utilities;
 
+@screen lg {
+  .screen-size {
+    @apply px-4;
+  }
+}
 
+@screen xl {
+  .screen-size {
+    @apply px-0;
+  }
+}
 
+.hiro-center {
+  position: absolute;
+  transform: translate(-50%,-50%);
+}
 
+body{
+  @apply bg-white
+}

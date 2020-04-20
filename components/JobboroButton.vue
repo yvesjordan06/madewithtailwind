@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="w-full">
     <button
       :class="{
         'px-16 py-4 text-2xl': large,
