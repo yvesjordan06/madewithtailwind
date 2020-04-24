@@ -1,6 +1,10 @@
 <template>
   <div class="flex flex-col">
-    <p class="text-4xl font-bold text-gray-800 self-center">All Invoices</p>
+    <div class="flex items-center px-2 justify-between">
+      <p class="text-4xl font-bold text-gray-800 self-center">All Invoices</p>
+      <nuxt-link to="/medica/invoice/new" class="bg-green-500 text-white font-bold p-2 rounded-lg">Add Invoice</nuxt-link>
+    </div>
+
 
     <DateRangeStats
       type="bar"

@@ -23,7 +23,7 @@
         v-model="batch.batch_no"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
-        type="number"
+        type="text"
         name="exporter"
         placeholder="Exporter"
       />
@@ -37,45 +37,71 @@
         v-model="batch.quantity"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
-        type="number"
+        type="text"
         name="stockage"
         placeholder="Stockage"
       />
     </div>
     <div class="mt-4 px-8 text-sm flex items-center">
-      <label for="vessel" class="w-2/12 uppercase">N° of ships</label>
+      <label class="w-2/12 uppercase">N° of ships</label>
       <input
         id="number_ship"
         v-model="batch.num_of_ships"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
-        type="number"
+        type="text"
         name="vessel"
         placeholder="Number of Ships"
       />
     </div>
     <div class="mt-4 px-8 text-sm flex items-center">
-      <label for="vessel" class="w-2/12 uppercase"
-        >Total Quantity (packs)</label
-      >
+      <label class="w-2/12 uppercase">Total Quantity (packs)</label>
       <input
         id="total"
         :value="get_total"
         class="w-full border rounded p-2 ml-8"
-        type="number"
+        type="text"
         name="vessel"
         readonly
       />
     </div>
     <div class="mt-4 px-8 text-sm flex items-center">
+      <label class="w-2/12 uppercase">Remaining Quantity</label>
+      <input
+        :value="get_total - (batch.distributed_quantity || 0)"
+        :readonly="readonly"
+        class="w-full border rounded p-2 ml-8"
+        type="text"
+        placeholder="Expired Date (date de facture) "
+      />
+    </div>
+    <div class="mt-4 px-8 text-sm flex items-center">
+      <label class="w-2/12 uppercase">Quantity distributed</label>
+      <input
+        v-model="batch.distributed_quantity || 'Not yet distributed'"
+        :readonly="readonly"
+        class="w-full border rounded p-2 ml-8"
+        type="text"
+        placeholder="Expired Date (date de facture) "
+      />
+    </div>
+    <div class="mt-4 px-8 text-sm flex items-center">
+      <label f class="w-2/12 uppercase">Number of distributions</label>
+      <input
+        v-model="batch.distributions_count || 'Not yet distributed'"
+        :readonly="readonly"
+        class="w-full border rounded p-2 ml-8"
+        type="text"
+        placeholder="Expired Date (date de facture) "
+      />
+    </div>
+    <div class="mt-4 px-8 text-sm flex items-center">
       <label class="w-2/12 uppercase">Manufactured Date</label>
       <input
-
         v-model="batch.mfg_date"
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="text"
-
         placeholder="Manufactured Date (date de facture) "
       />
     </div>
@@ -86,35 +112,14 @@
         :readonly="readonly"
         class="w-full border rounded p-2 ml-8"
         type="text"
+        placeholder="Expired Date (date de facture) "
+      />
+    </div>
 
-        placeholder="Expired Date (date de facture) "
-      />
-    </div>
-    <div class="mt-4 px-8 text-sm flex items-center">
-      <label for="date" class="w-2/12 uppercase">Distributed to</label>
-      <input
-        v-model="batch.region"
-        :readonly="readonly"
-        class="w-full border rounded p-2 ml-8"
-        type="text"
-        placeholder="Expired Date (date de facture) "
-      />
-    </div>
-    <div class="mt-4 px-8 text-sm flex items-center">
-      <label for="date" class="w-2/12 uppercase">Distribution Date</label>
-      <input
-        v-model="batch.distribution_date || 'Not yet distributed'"
-        :readonly="readonly"
-        class="w-full border rounded p-2 ml-8"
-        type="text"
-
-        placeholder="Expired Date (date de facture) "
-      />
-    </div>
-    <div class="mt-4 justify-end flex w-full" v-if="linked">
-      <nuxt-link :to="'/medica/batch/'+batch.batch_no"
+    <div v-if="linked" class="mt-4 justify-end flex w-full">
+      <nuxt-link
+        :to="'/medica/batch/' + batch.batch_no"
         class="px-8 py-2 ml-4 border rounded-lg bg-green-500 text-white"
-
       >
         See <span class="mdi mdi-share"></span>
       </nuxt-link>
@@ -125,7 +130,7 @@
 <script>
 export default {
   name: 'SeeBatch',
-  props: ['batch','linked'],
+  props: ['batch', 'linked'],
   computed: {
     get_total() {
       return this.batch.quantity * this.batch.num_of_ships

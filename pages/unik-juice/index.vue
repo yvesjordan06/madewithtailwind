@@ -291,7 +291,7 @@
       </div>
     </div>
     <!-- Numbers Section -->
-    <center>Copyright <a href='#' style='color:#fac94d;'>No Time to Sleep</a></center>
+    <center>Copyright <a href='https://nts.yaknema.com' target="_blank" style='color:#fac94d;'>No Time to Sleep</a></center>
   </div>
   </div>
 </template>

@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div v-if="batch">
     <div class="bg-white flex flex-col">
       <SeeBatch
-        v-if="!editMode"
+        v-if="!editMode && batch"
         v-model="batch.description"
         :batch="batch"
-        readonly="true"
+        :readonly="true"
         class="mt-2"
         @close="invoice.batches = invoice.batches.filter((b, i) => i !== index)"
       />
       <NewBatch
-        v-else
+        v-if="editMode && batch"
         v-model="updatedBatch"
         class="mt-2"
         @close="editMode = false"
@@ -18,7 +18,9 @@
 
       <div class="flex justify-end p-8">
         <button
-          v-if="!batch.region"
+          v-if="
+            batch.quantity * batch.num_of_ships - batch.distributed_quantity
+          "
           class="px-8 rounded-lg py-2 text-white bg-green-500"
           @click="showTransfer = true"
         >
@@ -56,7 +58,25 @@
         label="region"
         class="mt-4 px-8 text-sm"
       ></CustomSelect>
-
+      <div class="mt-4 px-8 text-sm flex items-center ">
+        <label class="w-2/12 uppercase"
+          >Quantity (Max :
+          {{
+            batch.quantity * batch.num_of_ships - batch.distributed_quantity
+          }})</label
+        >
+        <input
+          id="total"
+          v-model="quantity"
+          class="w-full border rounded p-2 ml-8"
+          type="number"
+          min="1"
+          :max="
+            batch.quantity * batch.num_of_ships - batch.distributed_quantity
+          "
+          name="quantity"
+        />
+      </div>
       <div class="mt-4 px-8 text-sm flex items-center justify-end">
         <button
           class="px-8 py-2 border rounded-lg bg-green-500 text-white"
@@ -95,10 +115,12 @@ export default {
       editButtonIcon: 'mdi-pencil',
       updatedBatch: {},
       transfer_region: '',
+      quantity: '0',
       sending: false,
       deleting: false,
       showTransfer: false,
-      shouldUpdate: false
+      shouldUpdate: false,
+      batch: {}
     }
   },
   computed: {
@@ -106,11 +128,11 @@ export default {
       const result = Array.from(this.$store.state.invoice.regions)
       return result.slice(1)
     },
-    batch() {
+    /* batch() {
       return {
         ...this.$store.getters['invoice/getBatch'](this.$route.params.id)
       }
-    },
+    }, */
     host() {
       return this.$store.state.invoice.host
     }
@@ -139,27 +161,67 @@ export default {
       }
     }
   },
+  beforeMount() {
+    this.getBatch()
+  },
   methods: {
-    async transfer() {
-      this.sending = true
-      const payload = {
-        region_code: this.transfer_region,
-        batch_no: this.batch.batch_no
+    async getBatch() {
+      console.log('Getting batch')
+      try {
+        this.batch = this.$store.getters['invoice/getBatch'](
+          this.$route.params.id
+        )
+      } catch (e) {
+        console.log(e)
       }
 
       try {
-        const response = await this.$axios.$post(
-          `${this.host}/make/distribution`,
-          payload
+        let data = await this.$axios.get(
+          `${this.host}/get/batch/${this.$route.params.id}`
         )
-        console.log(response)
-        this.$store.commit('invoice/addDistribution', payload)
-        alert('Transfered')
+        data = data.data
+        data.distributions_count = data.distributions.length
+        data.distributed_quantity =
+          data.distributions.length > 0
+            ? data.distributions.map((x) => x.quantity).reduce((a, b) => a + b)
+            : 0
+        this.batch = data
       } catch (e) {
-        alert(e)
-      } finally {
-        this.sending = false
-        this.showTransfer = false
+        alert(e.message)
+      }
+    },
+    async transfer() {
+      if (!this.transfer_region) alert('Region is required')
+      else if (!Number(this.quantity)) alert('Invalid quantity')
+      else {
+        this.sending = true
+        const payload = {
+          region_code: this.transfer_region,
+          batch_no: this.batch.batch_no,
+          quantity: Number(this.quantity)
+        }
+
+        try {
+          const response = await this.$axios.$post(
+            `${this.host}/make/distribution`,
+            payload
+          )
+          console.log(response)
+          const data = response.data
+          data.distributions_count = data.distributions.length
+          data.distributed_quantity =
+            data.distributions.length > 0
+              ? data.distributions.map((x) => x.quantity).reduce((a, b) => a + b)
+              : 0
+          this.batch = data
+          this.$store.commit('invoice/updateBatch', data)
+          alert('Transfered')
+        } catch (e) {
+          alert(e.message)
+        } finally {
+          this.sending = false
+          this.showTransfer = false
+        }
       }
     },
     async deleteBatch() {
@@ -175,7 +237,7 @@ export default {
           console.log(ip)
         } catch (e) {
           console.log(e)
-          alert(`${e} occurred`)
+          alert(`${e.message} occurred`)
         } finally {
           this.deleting = false
         }

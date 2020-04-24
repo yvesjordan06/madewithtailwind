@@ -48,9 +48,9 @@ export class Batch {
     mfg_date,
     exp_date,
     invoice_no,
-    region,
-    distribution_date,
-    created_at
+    distributions_count,
+    distributed_quantity,
+    created_at,
   }) {
     this.description = description
     this.batch_no = batch_no
@@ -59,8 +59,8 @@ export class Batch {
     this.mfg_date = formatDate(new Date(mfg_date))
     this.exp_date = formatDate(new Date(exp_date))
     this.invoice_no = invoice_no
-    this.region = region
-    this.distribution_date = formatDate(new Date(distribution_date))
+    this.distributions_count = distributions_count
+    this.distributed_quantity = distributed_quantity
     this.created_at = formatDate(new Date(created_at))
   }
 }
@@ -197,6 +197,8 @@ export const getters = {
   allBatches: (state) => {
     const batches = []
     state.invoices.forEach((invoice) => batches.push(...invoice.batches))
+    return batches
+    // Obselete data
     return batches.map((x) => ({
       ...x,
       region_full: state.regions

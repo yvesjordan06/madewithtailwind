@@ -146,7 +146,8 @@ export default {
     InvoiceTableData
   },
   props: {
-    column: Object,
+    column: Array,
+    hidden: Array,
     data: { type: Array, default: [] },
     checkable: Boolean,
     data_url: String,
@@ -201,6 +202,8 @@ export default {
   mounted() {
     this.selected = this.checked
     this.myData = Array.from(this.data)
+    if (this.hidden)
+      this.hiddenField = this.hidden.map((x) => (x.json ? x.json : x.name))
   },
   methods: {
     sortBy(val) {
