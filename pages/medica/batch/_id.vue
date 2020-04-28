@@ -42,7 +42,26 @@
           <span class="mdi mdi-delete"></span>
         </button>
       </div>
+
+      <div class="border-t border gray-500 h-px"></div>
+      <p class="mt-4 text-xl font-bold">Distributions</p>
+      <InvoiceTable
+        v-if="batch"
+        class="mb-16"
+        data_url="/medica/regions/"
+        data_id="region_code"
+        no_add="true"
+        :column="[
+          { name: 'Region°', json: 'region' },
+          { name: 'Quantity distributed', json: 'quantity' },
+
+          { name: 'Distribution Date', json: 'created_on' }
+        ]"
+        :data="batch.distributions"
+        @add-click="addInvoice"
+      />
     </div>
+
     <div v-if="showTransfer" class="bg-gray-500 fixed opacity-25 inset-0"></div>
     <div
       v-if="showTransfer"
@@ -103,10 +122,11 @@
 import NewBatch from '../../../components/NewBatch'
 import Select from '../../../components/Select'
 import SeeBatch from '../../../components/SeeBatch'
-import { convertToDate, Invoice } from '../../../store/invoice'
+import { convertToDate, formatDate, Invoice } from '../../../store/invoice'
 import CustomSelect from '../../../components/CustomSelect'
+import InvoiceTable from '../../../components/InvoiceTable'
 export default {
-  components: { CustomSelect, SeeBatch, Select, NewBatch },
+  components: { InvoiceTable, CustomSelect, SeeBatch, Select, NewBatch },
   layout: 'medica',
   data() {
     return {
@@ -120,7 +140,7 @@ export default {
       deleting: false,
       showTransfer: false,
       shouldUpdate: false,
-      batch: {}
+      //batch: {}
     }
   },
   computed: {
@@ -128,11 +148,12 @@ export default {
       const result = Array.from(this.$store.state.invoice.regions)
       return result.slice(1)
     },
-    /* batch() {
+    batch() {
       return {
-        ...this.$store.getters['invoice/getBatch'](this.$route.params.id)
+        ...this.$store.getters['invoice/getBatch'](this.$route.params.id),
+        distributions:this.$store.getters['invoice/getDistributionOfBatch'](this.$route.params.id),
       }
-    }, */
+    },
     host() {
       return this.$store.state.invoice.host
     }
@@ -162,7 +183,7 @@ export default {
     }
   },
   beforeMount() {
-    this.getBatch()
+    //this.getBatch()
   },
   methods: {
     async getBatch() {
@@ -180,7 +201,15 @@ export default {
           `${this.host}/get/batch/${this.$route.params.id}`
         )
         data = data.data
+
         data.distributions_count = data.distributions.length
+        data.distributions = data.distributions.map((dist) => ({
+          ...dist,
+          region: this.regions
+            .find((x) => x.code === dist.region_code)
+            .name.toUpperCase(),
+          created_on: formatDate(dist.created_on)
+        }))
         data.distributed_quantity =
           data.distributions.length > 0
             ? data.distributions.map((x) => x.quantity).reduce((a, b) => a + b)
@@ -211,10 +240,13 @@ export default {
           data.distributions_count = data.distributions.length
           data.distributed_quantity =
             data.distributions.length > 0
-              ? data.distributions.map((x) => x.quantity).reduce((a, b) => a + b)
+              ? data.distributions
+                  .map((x) => x.quantity)
+                  .reduce((a, b) => a + b)
               : 0
           this.batch = data
           this.$store.commit('invoice/updateBatch', data)
+          this.$store.commit('invoice/addDistribution', { ...payload })
           alert('Transfered')
         } catch (e) {
           alert(e.message)

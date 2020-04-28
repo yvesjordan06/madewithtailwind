@@ -130,6 +130,8 @@ export default {
     async fetchData() {
       try {
         const invoices = await this.$axios.get(`${this.hostUrl}/get/invoices`)
+        const distributions = await this.$axios.get(`${this.hostUrl}/get/regions/all`)
+        this.$store.commit('invoice/addDistributions', distributions.data)
         console.log(invoices)
         this.$store.commit('invoice/clear')
         invoices.data.forEach((i) =>

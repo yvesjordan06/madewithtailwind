@@ -7,9 +7,9 @@
       type="bar"
       :label="[]"
       :start="start"
-      date_key="distribution_date"
+      date_key="created_on"
       :datasets="data"
-      :legend="region.name.toUpperCase() +' Batch distribution'"
+      :legend="region.name.toUpperCase() + ' Batch distribution'"
     ></DateRangeStats>
 
     <InvoiceTable
@@ -20,14 +20,9 @@
       :column="[
         { name: 'Batch N°', json: 'batch_no' },
         { name: 'description' },
-        { name: 'Qty', json: 'quantity' },
-        { name: 'Ships', json: 'num_of_ships' },
-        { name: 'total' },
+        { name: 'Quantity distributed', json: 'quantity' },
 
-        { name: 'Dist Date', json: 'distribution_date' },
-        { name: 'Mfg Date', json: 'mfg_date' },
-        { name: 'Exp Date', json: 'exp_date' },
-        { name: 'Invoice N°', json: 'invoice_no' }
+        { name: 'Distribution Date', json: 'created_on' }
       ]"
       :data="data"
       @add-click="addInvoice"
@@ -38,6 +33,7 @@
 <script>
 import InvoiceTable from '../../../components/InvoiceTable'
 import DateRangeStats from '../../../components/DateRangeStats'
+import { formatDate } from '../../../store/invoice'
 
 export default {
   layout: 'medica',
@@ -56,7 +52,12 @@ export default {
         this.$route.params.region
       )
       console.log(ans)
-      return ans
+      return ans.map((x) => ({
+        ...x,
+        created_on: formatDate(x.created_on),
+        description: this.$store.getters['invoice/getBatch'](x.batch_no)
+          .description
+      }))
     }
   },
   beforeMount() {

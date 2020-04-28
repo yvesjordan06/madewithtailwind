@@ -31,7 +31,7 @@ export class Invoice {
       invoice_no
     }
     this.batches = batches.map((x) => {
-      const batch = new Batch(x)
+      const batch = new Batch({ ...x, invoice_no })
 
       batch.total = batch.quantity * batch.num_of_ships
       return batch
@@ -50,7 +50,7 @@ export class Batch {
     invoice_no,
     distributions_count,
     distributed_quantity,
-    created_at,
+    created_at
   }) {
     this.description = description
     this.batch_no = batch_no
@@ -59,11 +59,12 @@ export class Batch {
     this.mfg_date = formatDate(new Date(mfg_date))
     this.exp_date = formatDate(new Date(exp_date))
     this.invoice_no = invoice_no
-    this.distributions_count = distributions_count
-    this.distributed_quantity = distributed_quantity
-    this.created_at = formatDate(new Date(created_at))
+    this.distributions_count = distributions_count || 0
+    this.distributed_quantity = distributed_quantity || 0
+    this.created_at = formatDate(new Date(created_at)) || formatDate(new Date())
   }
 }
+
 export const state = () => ({
   name: localStorage.getItem('name'),
   host: localStorage.getItem('host'),
@@ -72,6 +73,7 @@ export const state = () => ({
     recruteur: false
   },
   invoices: [],
+  distributions: [],
   regions: [
     { name: 'Overview', code: '' },
     { name: 'adamawa', code: 'ADA', color: '#4ab21e' },
@@ -91,6 +93,10 @@ export const mutations = {
   reload(state, invoices) {
     state.invoices = []
     invoices.forEach((invoice) => state.invoices.push(invoice))
+  },
+
+  addDistributions(state, distributions) {
+    state.distributions = distributions
   },
 
   clear(state) {
@@ -114,7 +120,11 @@ export const mutations = {
   },
 
   jobboroLogin(state, user) {
-    state.jobboro = { ...state.jobboro, user, recruteur: user ? user.entreprise: false }
+    state.jobboro = {
+      ...state.jobboro,
+      user,
+      recruteur: user ? user.entreprise : false
+    }
     localStorage.setItem('user', JSON.stringify(user))
   },
 
@@ -172,8 +182,8 @@ export const mutations = {
 
     state.invoices = [...state.invoices]
   },
-  addDistribution(state, { region_code, batch_no }) {
-    const invoice_search = state.invoices.find(
+  addDistribution(state, { region_code, batch_no, quantity }) {
+    /* const invoice_search = state.invoices.find(
       (invoice) =>
         !!invoice.batches.find((_batch) => _batch.batch_no === batch_no)
     )
@@ -183,7 +193,14 @@ export const mutations = {
     batch.region = region_code
     batch.distribution_date = formatDate(new Date())
 
-    state.invoices = [...state.invoices]
+    state.invoices = [...state.invoices] */
+    const distr = state.distributions.find((dist) => dist.code === region_code)
+    distr.distributions.push({
+      region_code,
+      batch_no,
+      quantity,
+      created_on: new Date()
+    })
   },
   remove(state, invoice) {
     state.invoices.splice(state.list.indexOf(invoice), 1)
@@ -215,10 +232,34 @@ export const getters = {
     return state.regions.find((region) => region.code === code)
   },
   getBatch: (_, getters) => (id) => {
-    return getters.allBatches.find((batch) => batch.batch_no === id)
+    console.log(id)
+    console.log(getters.allBatches)
+    return getters.allBatches.find(
+      (batch) => Number(batch.batch_no) === Number(id)
+    )
   },
-  getBatchForRegion: (_, getters) => (region) => {
-    return getters.allBatches.filter((batch) => batch.region === region)
+  getDistributionOfBatch: (state) => (id) => {
+    const results = []
+    state.distributions.forEach((reg) =>
+      reg.distributions.forEach((dist) => {
+        if (Number(dist.batch_no) === Number(id))
+          results.push({
+            ...dist,
+            region: state.regions
+              .find((x) => x.code === dist.region_code)
+              .name.toUpperCase(),
+            created_on: formatDate(dist.created_on)
+          })
+      })
+    )
+
+    return results
+  },
+  getBatchForRegion: (state) => (region) => {
+    console.log(region)
+    const temp = state.distributions.find((r) => r.code === region)
+    return temp ? temp.distributions : []
+    // return temp.distributions
   },
   getDistributions: (state, getters) => {
     return getters.allBatches.filter((batch) => !!batch.distribution_date)

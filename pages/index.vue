@@ -83,11 +83,11 @@
             :label="regions.map((x) => x.name.toUpperCase())"
             :label_ids="regions.map((x) => x.code)"
             :bar_colors="regions.map((x) => x.color)"
-            label_key="region"
-            date_key="distribution_date"
+            label_key="region_code"
+            date_key="created_on"
             start_date="2010-1-1"
             type="horizontalBar"
-            :datasets="distributions"
+            :datasets="chartData"
           ></DataChart>
         </div>
         <div class="px-1 w-1/2">
@@ -97,11 +97,11 @@
             :label="regions.map((x) => x.name.toUpperCase())"
             :label_ids="regions.map((x) => x.code)"
             :bar_colors="regions.map((x) => x.color)"
-            label_key="region"
-            date_key="distribution_date"
+            label_key="region_code"
+            date_key="created_on"
             start_date="2010-1-1"
             type="pie"
-            :datasets="distributions"
+            :datasets="chartData"
           ></DataChart>
         </div>
       </div>
@@ -135,13 +135,14 @@
         :no_add="true"
         :no_delete="true"
         :column="[
-          { name: 'region', json: 'region_full' },
-          { name: 'Invoice N°', json: 'invoice_no' },
-          { name: 'Batch N°', json: 'batch_no' }
+          { name: 'region', json: 'region' },
+          { name: 'Quantity Distributed', json: 'quantity' },
+          { name: 'Batch N°', json: 'batch_no' },
+          { name: 'Distribution Date', json: 'created_on' },
         ]"
         :data="todayDistribution"
         data_url="/medica/regions/"
-        data_id="region"
+        data_id="region_code"
       />
     </div>
   </div>
@@ -149,7 +150,7 @@
 
 <script>
 import InvoiceTable from '../components/InvoiceTable.vue'
-import { formatDate } from '../store/invoice'
+import { formatDate, inDateRange } from '../store/invoice'
 import DateRangeStats from '../components/DateRangeStats'
 import DataChart from '../components/DataChart'
 
@@ -174,15 +175,40 @@ export default {
         (t) => formatDate(new Date(t.created_on)) === formatDate(new Date())
       )
     },
+    chartData() {
+      const data = this.$store.state.invoice.distributions
+      const result = []
+
+      data.forEach((regions) => {
+        regions.distributions.forEach((x) => {
+          result.push(x)
+        })
+      })
+
+      return result
+    },
+
     distributions() {
       return this.$store.getters['invoice/getDistributions']
     },
     todayDistribution() {
+      const data = this.$store.state.invoice.distributions
+      const result = []
+      data.forEach((region) => {
+
+        const today = region.distributions.filter(
+          (t) => formatDate(new Date(t.created_on)) === formatDate(new Date())
+        )
+        result.push(...today.map(x=> ({...x, region: this.regions.find(y => y.code === x.region_code).name.toUpperCase(), created_on: formatDate(x.created_on)})))
+      })
+      return result
+    },
+    /*todayDistribution() {
       return this.distributions.filter(
         (t) =>
           formatDate(new Date(t.distribution_date)) === formatDate(new Date())
       )
-    },
+    },*/
     regions() {
       return this.$store.state.invoice.regions.slice(1)
     },
