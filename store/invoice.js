@@ -162,16 +162,18 @@ export const mutations = {
 
     state.invoices = [...state.invoices]
   },
+
   updateBatch(state, updatedBatch) {
+    console.log('UpdatedBatch')
     console.log(updatedBatch)
     const invoice_index = state.invoices.find(
       (invoice) =>
         !!invoice.batches.find(
-          (_batch) => _batch.batch_no === updatedBatch.batch_no
+          (_batch) => Number(_batch.batch_no) === Number(updatedBatch.batch_no)
         )
     )
     const batch = invoice_index.batches.find(
-      (_batch) => _batch.batch_no === updatedBatch.batch_no
+      (_batch) => Number(_batch.batch_no) === Number(updatedBatch.batch_no)
     )
 
     const index_batch = invoice_index.batches.indexOf(batch)
@@ -185,10 +187,10 @@ export const mutations = {
   addDistribution(state, { region_code, batch_no, quantity }) {
     /* const invoice_search = state.invoices.find(
       (invoice) =>
-        !!invoice.batches.find((_batch) => _batch.batch_no === batch_no)
+        !!invoice.batches.find((_batch) => Number(_batch.batch_no) === batch_no)
     )
     const batch = invoice_search.batches.find(
-      (_batch) => _batch.batch_no === batch_no
+      (_batch) => Number(_batch.batch_no) === batch_no
     )
     batch.region = region_code
     batch.distribution_date = formatDate(new Date())

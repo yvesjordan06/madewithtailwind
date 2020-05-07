@@ -139,8 +139,8 @@ export default {
       sending: false,
       deleting: false,
       showTransfer: false,
-      shouldUpdate: false,
-      //batch: {}
+      shouldUpdate: false
+      // batch: {}
     }
   },
   computed: {
@@ -151,7 +151,9 @@ export default {
     batch() {
       return {
         ...this.$store.getters['invoice/getBatch'](this.$route.params.id),
-        distributions:this.$store.getters['invoice/getDistributionOfBatch'](this.$route.params.id),
+        distributions: this.$store.getters['invoice/getDistributionOfBatch'](
+          this.$route.params.id
+        )
       }
     },
     host() {
@@ -183,7 +185,7 @@ export default {
     }
   },
   beforeMount() {
-    //this.getBatch()
+    // this.getBatch()
   },
   methods: {
     async getBatch() {
@@ -236,7 +238,7 @@ export default {
             payload
           )
           console.log(response)
-          const data = response.data
+          /* const data = response.data
           data.distributions_count = data.distributions.length
           data.distributed_quantity =
             data.distributions.length > 0
@@ -244,8 +246,20 @@ export default {
                   .map((x) => x.quantity)
                   .reduce((a, b) => a + b)
               : 0
-          this.batch = data
-          this.$store.commit('invoice/updateBatch', data)
+          this.batch = data */
+          console.log('BAtch')
+          console.log(this.batch)
+          const batch = {
+            ...this.batch,
+            distributions_count: this.batch.distributions_count + 1,
+            distributed_quantity:
+              this.batch.distributed_quantity + Number(payload.quantity),
+            distributions: [
+              ...this.batch.distributions,
+              { ...payload, created_on: new Date() }
+            ]
+          }
+          this.$store.commit('invoice/updateBatch', { ...batch })
           this.$store.commit('invoice/addDistribution', { ...payload })
           alert('Transfered')
         } catch (e) {

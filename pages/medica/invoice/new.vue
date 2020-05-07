@@ -181,7 +181,7 @@ export default {
             ...this.invoice,
             invoice_date: convertToDate(this.invoice.invoice_date)
           },
-          batches: this.batches
+          batches: this.batches.map(x => ({...x, quantity: Number(x.quantity), num_of_ships: Number(x.num_of_ships)}))
         })
         this.ip = ip
         this.$store.commit(

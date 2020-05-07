@@ -1,58 +1,58 @@
 <template>
   <div class="base-font">
-  <div class="flex min-h-screen flex-col ">
-    <header style='background-color:#fac94d;' class="z-20 w-screen fixed px-8 py-4 text-white flex items-center">
-      <a href="#app" class="juice flex-grow text-2xl font-bold"
+  <div class="flex flex-col min-h-screen ">
+    <header style='background-color:#32CD32;' class="fixed z-20 flex items-center w-screen px-8 py-4 text-white">
+      <a href="#app" class="flex-grow text-2xl font-bold juice"
       >Unik Juice</a
       >
       <div style='cursor:pointer;padding:5px;font-size:12px;'
-           class=" md:hidden text-white bg-orange-600 ml-4  items-center rounded-full "
+           class="items-center ml-4 text-white rounded-full color-1 md:hidden"
            @click="menuVisible = !menuVisible"
       >Menu</div>
-      <div id="navmenu" :class="{'opacity-0 pointer-events-none':!menuVisible, 'opacity-100 pointer-events-auto':menuVisible}" class="absolute transition-all md:static top-0  md:mt-0 mt-16 md:text-base text-xl z-10 md:opacity-100 md:pointer-events-auto md:bg-transparent bg-orange-600 left-0 right-0 flex flex-col md:flex-row">
-        <a href="#app" @click="menuVisible = false"  style="font-style:italic;" class="ml-4  py-2 md:p-0">Accueil</a>
-        <a href="#numbers" @click="menuVisible = false"  style="font-style:italic;" class="ml-4 py-2 md:p-0"> Unik</a>
-        <a href="#juices" @click="menuVisible = false"  style="font-style:italic;" class="ml-4 py-2 md:p-0"> Boissons </a>
-        <a href="#juices" @click="menuVisible = false"  style="font-style:italic;" class="ml-4 py-2 md:p-0"> Astuces </a>
-        <a href="#equipe"  @click="menuVisible = false" style="font-style:italic;" class="ml-4 py-2 md:p-0"> Equipe</a>
-        <a href="#contact" @click="menuVisible = false"  style="font-style:italic;" class="ml-4 py-2 md:p-0"> Contacts </a>
-        <a href="#" @click="menuVisible = false"  style="font-style:italic;font-weight:bold;" class="md:text-orange-600  text-white ml-4">&nbsp;Fr</a>
+      <div id="navmenu" :class="{'opacity-0 pointer-events-none':!menuVisible, 'opacity-100 pointer-events-auto':menuVisible}" class="absolute top-0 left-0 right-0 z-10 flex flex-col mt-16 text-xl transition-all color-1 md:static md:mt-0 md:text-base md:opacity-100 md:pointer-events-auto md:bg-transparent md:flex-row">
+        <a href="#app" @click="menuVisible = false"  style="font-style:italic;" class="py-2 ml-4 md:p-0">Accueil</a>
+        <a href="#numbers" @click="menuVisible = false"  style="font-style:italic;" class="py-2 ml-4 md:p-0"> Unik</a>
+        <a href="#juices" @click="menuVisible = false"  style="font-style:italic;" class="py-2 ml-4 md:p-0"> Boissons </a>
+        <a href="#juices" @click="menuVisible = false"  style="font-style:italic;" class="py-2 ml-4 md:p-0"> Astuces </a>
+        <a href="#equipe"  @click="menuVisible = false" style="font-style:italic;" class="py-2 ml-4 md:p-0"> Equipe</a>
+        <a href="#contact" @click="menuVisible = false"  style="font-style:italic;" class="py-2 ml-4 md:p-0"> Contacts </a>
+        <a href="#" @click="menuVisible = false"  style="font-style:italic;font-weight:bold;" class="ml-4 text-white md:text-orange-600">&nbsp;Fr</a>
       </div>
     </header>
 
     <div
       id="bg1"
-      class="flex-grow hero h-screen bg-cover bg-center relative px-8 py-16 flex flex-col"
+      class="relative flex flex-col flex-grow h-screen px-8 py-16 bg-center bg-cover hero"
       style="padding-top:100px;  background-attachment:fixed;"
     >
       <div class="overlay"></div>
-      <div class="content flex flex-col flex-grow">
+      <div class="flex flex-col flex-grow content">
         <div class="flex justify-between">
-          <p class="juice text-orange-600 text-4xl font-black"></p>
+          <p class="text-4xl font-black text-orange-600 juice"></p>
           <div class="flex text-xl">
           <span
-            class="mdi mdi-facebook text-white bg-orange-600 w-6 h-6 flex justify-center items-center rounded-full"
+            class="flex items-center justify-center w-6 h-6 text-white rounded-full color-1 mdi mdi-facebook"
           ></span>
             <span
-              class="mdi mdi-twitter text-white bg-orange-600 ml-4  w-6 h-6 flex justify-center items-center rounded-full"
+              class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-twitter"
             ></span>
             <span
-              class="mdi mdi-google text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "
+              class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-google "
             ></span>
             <span
-              class="mdi mdi-instagram text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "
+              class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-instagram "
             ></span>
             <span
-              class="mdi mdi-phone text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "
+              class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-phone "
             ></span>
           </div>
         </div>
 
-        <div class="flex flex-col items-center flex-grow justify-center ">
-          <p class="text-white text-6xl font-black font-sans">BIENVENUE</p>
+        <div class="flex flex-col items-center justify-center flex-grow ">
+          <p class="font-sans text-4xl font-black text-white md:text-6xl">BIENVENUE</p>
           <i class='juice'>Du verger au jus</i>
           <button style="background-color: rgba(255,255,255,0.5)"
-                  class=" py-2 juice mt-4 text-4xl font-bold text-gray-700 rounded-full px-16 ">Commander
+                  class="px-16 py-2 mt-4 text-2xl font-bold text-gray-700 rounded-full md:text-4xl juice">Commander
           </button>
         </div>
       </div>
@@ -62,24 +62,24 @@
 
   <!-- Numbers Section -->
   <div id='numbers' style="min-height:300px;border-top:1px solid #dedede;margin-bottom:20px;">
-    <h3 style='text-align:center;' class='text-4xl font-sans py-2 text-black-600'>Unik Juice</h3>
+    <h3 style='text-align:center;' class='py-2 font-sans text-4xl text-black-600'>Unik Juice</h3>
     <center>
       <hr style="width:20%;margin-bottom:30px;"></hr>
     </center>
-    <div class='block md:flex justify-around' style='flex-wrap:wrap;'>
-      <div class='w-full md:w-1/2 lg:w-1/4 my-4'><h6 class='mt-4 text-center text-orange-600 font-bold px-16'><i>Objectifs</i></h6>
+    <div class='justify-around block md:flex' style='flex-wrap:wrap;'>
+      <div class='w-full my-4 md:w-1/2 lg:w-1/4'><h6 class='px-16 mt-4 font-bold text-center ' style="color: #008000"><i>Objectifs</i></h6>
         <p class='text-center'>
           Valoriser l’usage des fruits naturels pour générer un revenu par la transformation, la
           commercialisation, la promotion de la souveraineté alimentaire par sa conservation
         </p>
       </div>
-      <div class='w-full md:w-1/2 lg:w-1/4 my-4 '><h6 class='mt-4 text-center text-orange-600 font-bold px-16'><i>Missions</i></h6>
+      <div class='w-full my-4 md:w-1/2 lg:w-1/4 '><h6 class='px-16 mt-4 font-bold text-center ' style="color: #008000"><i>Missions</i></h6>
         <p class='text-center'>
           D’assurer quotidiennement au consommateur une garantie sur l'authenticité et les bienfaits des
           produits qui lui sont proposés afin d’améliorer une croissance durable par une qualité innovante
         </p>
       </div>
-      <div class='w-full md:w-1/2 lg:w-1/4'><h6 class='mt-4 text-center text-orange-600 font-bold px-16'><i>Vision</i></h6>
+      <div class='w-full md:w-1/2 lg:w-1/4'><h6 class='px-16 mt-4 font-bold text-center ' style="color: #008000"><i>Vision</i></h6>
         <p class='text-center'>
           Développer une stratégie de commercialisation et vente afin d’augmenter la productivité et la
           consommation et devenir la première entreprise de transformation de fruits d’ici 2030.
@@ -89,26 +89,26 @@
   </div>
   <!-- Numbers Section -->
 
-  <div id="unik" style="min-height:300px;background-color:#fac94d;">
-    <h3 style='text-align:center;' class='text-white text-4xl py-2 font-sans'> A Propos </h3>
+  <div id="unik" style="min-height:300px;background-color: #708d23;">
+    <h3 style='text-align:center;' class='py-2 font-sans text-4xl text-white'> A Propos </h3>
     <center>
       <hr style="width:20%;"></hr>
     </center>
-    <p class='py-2 hidden md:block' style='text-align:center;'>
+    <p class='hidden py-2 md:block' style='text-align:center;'>
       <i>Les fruits sont source de vie, de plaisir et de santé</i></br></br>
     </p>
-    <p style='text-align:center; ' class='text-2xl mt-5 juice'>Nous produisons des jus de fruit 100% naturel et à
+    <p style='text-align:center; ' class='mt-5 text-2xl text-white juice'>Nous produisons des jus de fruit 100% naturel et à
       la conservation impécable ! </p>
 
-    <div class="justify-center flex text-xl">
-      <button class="bg-orange-600 py-2 juice mt-4 text-4xl font-bold text-white rounded-full px-16 ">Commander
+    <div class="flex justify-center text-xl">
+      <button class="px-16 py-2 mt-4 text-4xl font-bold text-white rounded-full color-1 juice ">Commander
       </button>
     </div>
   </div>
   <div id="juices" style="min-height:300px;">
-    <h3 style='text-align:center;' class='text-4xl font-sans py-2 text-orange-600'> Nos Boissons </h3>
+    <h3 style='text-align:center; color: #008000' class='py-2 font-sans text-4xl '> Nos Boissons </h3>
     <center>
-      <hr style="width:20%;margin-bottom:50px;" class='bg-orange-600 text-4xl font-bold text-orange-600'></hr>
+      <hr style="width:20%;margin-bottom:50px;" class='text-4xl font-bold text-orange-600 color-1'></hr>
     </center>
 
     <center><i class='juice' style='font-size:16px;'> Nous vous souhaitons un bon rafraichissement </i></center>
@@ -137,95 +137,87 @@
       <div class='md:w-1/3 lg:w-1/4' style='margin:0px;height:240px;text-align:center;'><center><img style='width:200px;height:200px;'                                                            src='/unik/images/jus10.jpg' class="tile"></center>
         <p> <h2 style='text-transform:uppercase;font-weight:bold;'>Jus de Gingembre </h2> </p>
       </div>
-      <div class='md:w-1/3 lg:w-1/4' style='margin:0px;height:240px;text-align:center;'><center><img style='width:200px;height:200px;'                                                            src='/unik/images/jus10.jpg' class="tile"></center>
-        <p> <h2 style='text-transform:uppercase;font-weight:bold;'>Jus de Mangue </h2> </p>
-      </div>
-      <div class='md:w-1/3 lg:w-1/4' style='margin:0px;height:240px;text-align:center;'><center><img style='width:200px;height:200px;'                                                            src='/unik/images/jus10.jpg' class="tile"></center>
-        <p> <h2 style='text-transform:uppercase;font-weight:bold;'>Jus de Pamplemousse </h2> </p>
-      </div>
-      <div class='md:w-1/3 lg:w-1/4' style='margin:0px;height:240px;text-align:center;'><center><img style='width:200px;height:200px;'                                                            src='/unik/images/jus10.jpg' class="tile"></center>
-        <p> <h2 style='text-transform:uppercase;font-weight:bold;'>Jus de Mandarine </h2> </p>
-      </div>
+     
     </div>
   </div>
-  <div class='mt-8 py-2 px-16 bg-gray-800'>
-    <p class="text-3xl text-center text-white font-sans">LE SAVIEZ VOUS ?</p>
-    <div class="flex justify-between items-center">
-      <button class="mdi mdi-chevron-left focus:outline-none font-black text-3xl text-gray-300 opacity-75 w-12 h-12 rounded-full hover:opacity-100"
+  <div class='px-2 py-2 mt-8 bg-gray-800 md:px-16'>
+    <p class="font-sans text-3xl text-center text-white">LE SAVIEZ VOUS ?</p>
+    <div class="flex items-center justify-between">
+      <button class="w-12 h-12 text-3xl font-black text-gray-300 rounded-full opacity-75 mdi mdi-chevron-left focus:outline-none hover:opacity-100"
               href="#" @click="prev('tip')"></button>
-      <transition-group name="fade" tag="div" class="h-48  flex-grow">
+      <transition-group name="fade" tag="div" class="flex-grow h-48">
         <div v-for="i in [tipIndex]" :key="i"
-             class='text-center w-full h-full flex flex-col justify-center text-gray-700'>
+             class='flex flex-col justify-center w-full h-full text-center text-gray-700'>
 
           <p style='font-size:20px;' class='text-gray-200'>{{currentTip}}</p>
         </div>
       </transition-group>
-      <button class="mdi mdi-chevron-right focus:outline-none font-black text-3xl text-gray-300 opacity-75 w-12 h-12 rounded-full hover:opacity-100"
+      <button class="w-12 h-12 text-3xl font-black text-gray-300 rounded-full opacity-75 mdi mdi-chevron-right focus:outline-none hover:opacity-100"
               href="#" @click="next('tip')"></button>
     </div>
   </div>
 
   <div id="equipe" style="margin-bottom:50px;margin-top:35px;">
-    <h3 style='text-align:center;' class='text-4xl font-sans py-2 text-orange-600'> Notre Equipe </h3>
+    <h3 style='text-align:center;color: #008000' class='py-2 font-sans text-4xl ' > Notre Equipe </h3>
     <center>
       <hr style="width:20%;margin-bottom:30px;"></hr>
     </center>
     <div class='block' style='justify-content:space-around;flex-wrap:wrap;'>
 
-      <div class="py-8 w-full px-16">
-        <p class="text-center text-3xl font-bold">Unik Juice</p>
+      <div class="w-full px-2 py-8 md:px-16">
+        <p class="text-3xl font-bold text-center">Unik Juice</p>
         <div class="mt-8 md:flex">
-          <div class="md:w-full lg:w-1/3 px-4 contact-card">
-            <div class="shadow-lg py-4 rounded-lg w-full">
-              <div class="mx-auto w-32 h-32 photo rounded-full overflow-hidden"></div>
-              <p class="text-center mt-2 font-bold">Clémence Noutcha</p>
-              <p class="text-center text-gray-500 mt-2 font-bold"><small>Promotrice du Projet</small></p>
-              <p class="text-center mt-2 text-gray-600 text-sm">
+          <div class="w-full px-4 lg:w-1/3 contact-card">
+            <div class="w-full py-4 rounded-lg shadow-lg">
+              <div class="w-32 h-32 mx-auto overflow-hidden rounded-full photo"></div>
+              <p class="mt-2 font-bold text-center">Clémence Noutcha</p>
+              <p class="mt-2 font-bold text-center text-gray-500"><small>Promotrice du Projet</small></p>
+              <p class="mt-2 text-sm text-center text-gray-600">
                 +237 694842185
               </p>
-              <p class="text-center mt-1 text-gray-600 text-sm">
+              <p class="mt-1 text-sm text-center text-gray-600">
                 Cameroon, Yaoundé
               </p>
-              <div class="flex mt-4 px-4 justify-center justify-around">
-                <a href="#" class="w-8 h-8 rounded-full  bg-blue-800 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-facebook" targer="blank"></a>
-                <a href="#" class="w-8 h-8 rounded-full  bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram" targer="blank"></a>
-                <a href="#" class="w-8 h-8 rounded-full  bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git" targer="blank"></a>
+              <div class="flex justify-center justify-around px-4 mt-4">
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-blue-800 rounded-full mdi mdi-facebook" targer="blank"></a>
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-blue-500 rounded-full mdi mdi-telegram" targer="blank"></a>
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-black rounded-full mdi mdi-git" targer="blank"></a>
               </div>
             </div>
           </div>
-          <div class="md:w-full lg:w-1/3 px-4 contact-card">
-            <div class="shadow-lg py-4 rounded-lg w-full">
-              <div class="mx-auto w-32 h-32 photo rounded-full overflow-hidden"></div>
-              <p class="text-center mt-2 font-bold">Hiro Hamada</p>
-              <p class="text-center text-gray-500 mt-2 font-bold"><small>Web Master</small></p>
-              <p class="text-center mt-2 text-gray-600 text-sm">
+          <div class="w-full px-4 lg:w-1/3 contact-card">
+            <div class="w-full py-4 rounded-lg shadow-lg">
+              <div class="w-32 h-32 mx-auto overflow-hidden rounded-full photo"></div>
+              <p class="mt-2 font-bold text-center">Hiro Hamada</p>
+              <p class="mt-2 font-bold text-center text-gray-500"><small>Web Master</small></p>
+              <p class="mt-2 text-sm text-center text-gray-600">
                 +237 694842185
               </p>
-              <p class="text-center mt-1 text-gray-600 text-sm">
+              <p class="mt-1 text-sm text-center text-gray-600">
                 Cameroon, Yaoundé
               </p>
-              <div class="flex mt-4 px-4 justify-center justify-around">
-                <a href="#" class=" rounded-full w-8 h-8 bg-blue-800 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-facebook" targer="blank"></a>
-                <a href="#" class=" rounded-full w-8 h-8 bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram" targer="blank"></a>
-                <a href="#" class=" rounded-full w-8 h-8 bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git" targer="blank"></a>
+              <div class="flex justify-center justify-around px-4 mt-4">
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-blue-800 rounded-full mdi mdi-facebook" targer="blank"></a>
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-blue-500 rounded-full mdi mdi-telegram" targer="blank"></a>
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-black rounded-full mdi mdi-git" targer="blank"></a>
               </div>
             </div>
           </div>
-          <div class="md:w-full lg:w-1/3 px-4 contact-card">
-            <div class="shadow-lg py-4 rounded-lg w-full">
-              <div class="photo mx-auto w-32 h-32 rounded-full overflow-hidden"></div>
-              <p class="text-center mt-2 font-bold">Aurelie Nguejang</p>
-              <p class="text-center text-gray-500 mt-2 font-bold"><small>Communicatrice</small></p>
-              <p class="text-center mt-2 text-gray-600 text-sm">
+          <div class="w-full px-4 lg:w-1/3 contact-card">
+            <div class="w-full py-4 rounded-lg shadow-lg">
+              <div class="w-32 h-32 mx-auto overflow-hidden rounded-full photo"></div>
+              <p class="mt-2 font-bold text-center">Aurelie Nguejang</p>
+              <p class="mt-2 font-bold text-center text-gray-500"><small>Communicatrice</small></p>
+              <p class="mt-2 text-sm text-center text-gray-600">
                 +237 694842185
               </p>
-              <p class="text-center mt-1 text-gray-600 text-sm">
+              <p class="mt-1 text-sm text-center text-gray-600">
                 Cameroon, Yaoundé
               </p>
-              <div class="flex mt-4 px-4 justify-center justify-around">
-                <a href="#" class="w-8 h-8 rounded-full  bg-blue-800 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-facebook" targer="blank"></a>
-                <a href="#" class="w-8 h-8 rounded-full  bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram" targer="blank"></a>
-                <a href="#" class="w-8 h-8 rounded-full  bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git" targer="blank"></a>
+              <div class="flex justify-center justify-around px-4 mt-4">
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-blue-800 rounded-full mdi mdi-facebook" targer="blank"></a>
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-blue-500 rounded-full mdi mdi-telegram" targer="blank"></a>
+                <a href="#" class="flex items-center justify-center w-8 h-8 overflow-hidden text-2xl text-white bg-black rounded-full mdi mdi-git" targer="blank"></a>
               </div>
             </div>
           </div>
@@ -233,21 +225,21 @@
       </div>
     </div>
 
-    <div class='py-2 px-16'>
-      <p class="text-3xl text-center text-orange-600 font-sans">NOS CLIENTS</p>
-      <div class="flex justify-between items-center">
-        <button class="mdi mdi-chevron-left focus:outline-none font-black text-3xl text-gray-600 opacity-75 w-12 h-12 rounded-full hover:opacity-100"
+    <div class='px-2 py-2 md:px-16'>
+      <p class="font-sans text-3xl text-center" style="color: #008000">NOS CLIENTS</p>
+      <div class="flex items-center justify-between">
+        <button class="w-12 h-12 text-3xl font-black text-gray-600 rounded-full opacity-75 mdi mdi-chevron-left focus:outline-none hover:opacity-100"
                 href="#" @click="prev"></button>
-        <transition-group name="fade" tag="div" class="h-64  flex-grow">
+        <transition-group name="fade" tag="div" class="flex-grow h-64">
           <div v-for="i in [currentIndex]" :key="i"
-               class='text-center w-full h-full flex flex-col justify-center text-gray-700'>
-            <p class='italic font-bold juice text-3xl'>
+               class='flex flex-col justify-center w-full h-full text-center text-gray-700'>
+            <p class='text-3xl italic font-bold juice'>
               {{currentImg.review}}
             </p>
             <p class='mt-4 text-sm'>{{currentImg.user}}</p>
           </div>
         </transition-group>
-        <button class="mdi mdi-chevron-right focus:outline-none font-black text-3xl text-gray-600 opacity-75 w-12 h-12 rounded-full hover:opacity-100"
+        <button class="w-12 h-12 text-3xl font-black text-gray-600 rounded-full opacity-75 mdi mdi-chevron-right focus:outline-none hover:opacity-100"
                 href="#" @click="next"></button>
       </div>
     </div>
@@ -255,36 +247,36 @@
 
     <!-- Numbers Section -->
     <div id='numbers' style="min-height:300px;border-top:1px solid #dedede;margi-bottom:20px;">
-      <h3 style='text-align:center;' class='text-4xl font-sans py-2 text-black-600'> Contactez Nous </h3>
+      <h3 style='text-align:center;' class='py-2 font-sans text-4xl text-black-600'> Contactez Nous </h3>
       <center>
         <hr style="width:20%;margin-bottom:30px;"></hr>
       </center>
       <div style='height:100px;' class='flex justify-around'>
         <div>
           <div class='flex my-3'>
-            <span class="mdi mdi-map-marker text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "></span>
+            <span class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-map-marker "></span>
             <span style='margin-left:10px;font-size:12px;'> Yaoundé, CMR </span>
           </div>
           <div class='flex my-3'>
-            <span class="mdi mdi-phone text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "></span>
+            <span class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-phone "></span>
             <span style='margin-left:10px;font-size:12px;'> +237 699 690 829 </span>
           </div>
           <div class='flex my-3'>
-            <span class="mdi mdi-phone text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "></span>
+            <span class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-phone "></span>
             <span style='margin-left:10px;font-size:12px;'> +237 652 724 829 </span>
           </div>
         </div>
         <div>
           <div class='flex my-3'>
-            <span class="mdi mdi-facebook text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "></span>
+            <span class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-facebook "></span>
             <span style='margin-left:10px;font-size:12px;'> unikjuice </span>
           </div>
           <div class='flex my-3'>
-            <span class="mdi mdi-google text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "></span>
+            <span class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-google "></span>
             <span style='margin-left:10px;font-size:12px;'> unikjuice@gmail.com </span>
           </div>
           <div class='flex my-3'>
-            <span class="mdi mdi-twitter text-white bg-orange-600 ml-4 w-6 h-6 flex justify-center items-center rounded-full "></span>
+            <span class="flex items-center justify-center w-6 h-6 ml-4 text-white rounded-full color-1 mdi mdi-twitter "></span>
             <span style='margin-left:10px;font-size:12px;'> unikjuiz </span>
           </div>
         </div>
@@ -398,7 +390,8 @@ export default {
 
 <style scoped>
   #bg1 {
-    background-image: url('/unik/images/photos.jpg');
+    /*background-image: url('/unik/images/jus7.jpg');*/
+    background-image: url('https://source.unsplash.com/1280x720/?green?fruit');
   }
   .fade-enter-to {
     transition: all linear 2s;
@@ -546,5 +539,13 @@ export default {
 
   .transition-all{
     transition: all linear 0.3s;
+  }
+
+  .color-1{
+    background-color: #32CD32;
+  }
+
+  .color-2{
+    background-color: #008000;
   }
 </style>
