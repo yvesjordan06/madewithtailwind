@@ -35,7 +35,7 @@
         :value="value.batch_no"
         :readonly="!is_new"
         class="w-full border rounded p-2 ml-8"
-        type="number"
+        type="text"
         name="exporter"
         placeholder="Batch Number"
         required

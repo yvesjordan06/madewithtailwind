@@ -222,8 +222,10 @@ export default {
       }
     },
     async transfer() {
-      if (!this.transfer_region) alert('Region is required')
-      else if (!Number(this.quantity)) alert('Invalid quantity')
+      if (!this.transfer_region)
+        alertify.alert('Missing data', 'Region is required')
+      else if (!Number(this.quantity))
+        alertify.alert('Invalid quantity', 'Invalid quantity entered')
       else {
         this.sending = true
         const payload = {
@@ -261,52 +263,65 @@ export default {
           }
           this.$store.commit('invoice/updateBatch', { ...batch })
           this.$store.commit('invoice/addDistribution', { ...payload })
-          alert('Transfered')
+          alertify.success('Transfered Successfully')
         } catch (e) {
-          alert(e.message)
+          alertify.success('Could not transfer batch at this time')
         } finally {
           this.sending = false
           this.showTransfer = false
         }
       }
     },
-    async deleteBatch() {
-      if (confirm('Do you really want to delete? \n THIS IS NOT REVERSIBLE')) {
-        this.deleting = true
-        try {
-          const ip = await this.$axios.$delete(
-            `${this.host}/delete/batch/${this.batch.batch_no}`
-          )
+    deleteBatch() {
+      alertify.confirm(
+        'Batch Delete',
+        'Do you really want to delete? \n THIS IS NOT REVERSIBLE',
+        async () => {
+          this.deleting = true
+          try {
+            const ip = await this.$axios.$delete(
+              `${this.host}/delete/batch/${this.batch.batch_no}`
+            )
 
-          this.$store.commit('invoice/deleteBatch', this.batch)
-          alert('Deleted Successfully')
-          console.log(ip)
-        } catch (e) {
-          console.log(e)
-          alert(`${e.message} occurred`)
-        } finally {
-          this.deleting = false
-        }
-      }
+            this.$store.commit('invoice/deleteBatch', this.batch)
+            alertify.success('Batch deleted.')
+            this.$router.push({
+              path: '/medica/batch'
+            })
+            console.log(ip)
+          } catch (e) {
+            console.log(e)
+            alertify.error('Could not delete batch at this time')
+          } finally {
+            this.deleting = false
+          }
+        },
+        null
+      )
     },
     async update() {
       this.sending = true
       const payload = {
-        ...this.updatedBatch
+        ...this.updatedBatch,
+        // created_at: convertToDate(new Date(this.updatedBatch.created_at)),
+        mfg_date: convertToDate(new Date(this.updatedBatch.mfg_date)),
+        exp_date: convertToDate(new Date(this.updatedBatch.exp_date))
       }
 
       try {
+        console.log('Updating batch')
+        console.log(payload)
         const response = await this.$axios.$put(`${this.host}/update/batch`, {
           ...payload,
           mfg_date: convertToDate(payload.mfg_date),
           exp_date: convertToDate(payload.exp_date),
-          distribution_date: convertToDate(payload.distribution_date)
+          //distribution_date: convertToDate(payload.distribution_date)
         })
         console.log(response)
         this.$store.commit('invoice/updateBatch', payload)
-        alert('Updated')
+        alertify.success('Batch updated successfully')
       } catch (e) {
-        alert(e)
+        alertify.error('Could not update batch')
       } finally {
         this.sending = false
         this.showTransfer = false

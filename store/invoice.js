@@ -169,11 +169,11 @@ export const mutations = {
     const invoice_index = state.invoices.find(
       (invoice) =>
         !!invoice.batches.find(
-          (_batch) => Number(_batch.batch_no) === Number(updatedBatch.batch_no)
+          (_batch) => _batch.batch_no === updatedBatch.batch_no
         )
     )
     const batch = invoice_index.batches.find(
-      (_batch) => Number(_batch.batch_no) === Number(updatedBatch.batch_no)
+      (_batch) => _batch.batch_no === updatedBatch.batch_no
     )
 
     const index_batch = invoice_index.batches.indexOf(batch)
@@ -237,14 +237,14 @@ export const getters = {
     console.log(id)
     console.log(getters.allBatches)
     return getters.allBatches.find(
-      (batch) => Number(batch.batch_no) === Number(id)
+      (batch) => batch.batch_no === id
     )
   },
   getDistributionOfBatch: (state) => (id) => {
     const results = []
     state.distributions.forEach((reg) =>
       reg.distributions.forEach((dist) => {
-        if (Number(dist.batch_no) === Number(id))
+        if (dist.batch_no === id)
           results.push({
             ...dist,
             region: state.regions

@@ -2,7 +2,9 @@
   <div class="p-16 bg-white">
     <p class="text-3xl font-bold">Settings</p>
     <p class="text-xl font-bold mt-8">App Configuration</p>
-    <div class="flex items-stretch border mt-4 rounded-lg overflow-hidden border-green-500">
+    <div
+      class="flex items-stretch border mt-4 rounded-lg overflow-hidden border-green-500"
+    >
       <p class="bg-gray-300 py-2 px-8">Your Name</p>
       <input
         v-model="new_name"
@@ -17,7 +19,9 @@
       </button>
     </div>
 
-    <div class="flex items-stretch border rounded-lg overflow-hidden border-green-500 mt-4">
+    <div
+      class="flex items-stretch border rounded-lg overflow-hidden border-green-500 mt-4"
+    >
       <p class="bg-gray-300 py-2 px-8">Database Host</p>
       <input
         v-model="new_host"
@@ -74,7 +78,8 @@
     <div class="border rounded-lg p-8 mt-4">
       <p class="text-gray-700 font-bold">Reset App</p>
       <p class="text-gray-600 mt-2">
-        This operation is going to reset the app and reset all settings. Use it only when needed, this operation is safe
+        This operation is going to reset the app and reset all settings. Use it
+        only when needed, this operation is safe
       </p>
       <p class="text-gray-600 mt-2">
         <span class="text-red-500">Warning !</span> Do it at your own risk
@@ -141,32 +146,45 @@ export default {
     },
     changeHost() {
       this.$store.commit('invoice/updateHost', this.new_host)
-      this.startTimer()
+      alertify.success('Host changed')
     },
     changeName() {
       this.$store.commit('invoice/updateName', this.new_name)
-      this.startTimer()
+      alertify.success('Nice to meet you ' + this.new_name)
     },
     reset() {
-      this.$store.commit('invoice/resetApp')
-      this.startTimer()
+      alertify.confirm(
+        'Factory Reset',
+        'This is going to set the app to default settings, Do you wish to proceed ?',
+        () => {
+          this.$store.commit('invoice/resetApp')
+        },
+        null
+      )
     },
     clearData() {
-      this.$store.commit('invoice/clear')
-      this.startTimer()
+      alertify.confirm(
+        'Clear local data',
+        'This is going to clear the app cached data, Do you wish to proceed ?',
+        () => {
+          this.$store.commit('invoice/clear')
+          alertify.success('Data cleared')
+        },
+        null
+      )
     },
     async fetchData() {
       try {
         const invoices = await this.$axios.get(`${this.host}/get/invoices`)
+        alertify.message('Please wait! Data is being downloaded')
         console.log(invoices)
         this.$store.commit('invoice/clear')
         invoices.data.forEach((i) =>
           this.$store.commit('invoice/add', new Invoice(i))
         )
-        this.startTimer()
+        alertify.success('Data updated successfully')
       } catch (e) {
-        this.startTimer(false)
-        alert(e.message)
+        alertify.error('Could not download data!, Check the server connection')
       }
     }
   }

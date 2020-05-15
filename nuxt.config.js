@@ -1,10 +1,9 @@
 export default {
-  //mode: 'universal',
+  // mode: 'universal',
   mode: 'spa',
   router: {
-    base: '/',
-    //mode: 'hash'
-    
+    base: '/'
+    // mode: 'hash'
   },
   /*
    ** Headers of the page
@@ -20,7 +19,8 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [{ src: '/alertify/alertify.min.js' }]
   },
   /*
    ** Customize the progress-bar color
@@ -50,6 +50,8 @@ export default {
     '@nuxtjs/axios',
     'nuxt-purgecss',
     'nuxtjs-mdi-font'
+
+    // Relative to your project srcDir
   ],
   purgeCSS: {
     // Overrides the default settings here

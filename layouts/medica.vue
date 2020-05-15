@@ -71,13 +71,7 @@ export default {
   data: () => ({
     ignoreHostChange: false,
     host:
-      window.location.protocol +
-      '//' +
-      (window.location.protocol.startsWith('http')
-        ? window.location.hostname.endsWith('.com')
-          ? 'yvesjordan06.pythonanywhere.com'
-          : window.location.hostname
-        : 'localhost'),
+    'http://localhost:1909',
     name: ''
   }),
   computed: {
@@ -98,18 +92,17 @@ export default {
     hostUrl(a, _) {
       this.ignoreHostChange = this.ignoreHostChange || !a
       if (!this.ignoreHostChange) {
-        const retry = confirm(
-          'The database host has been change, will you like to reload data ?'
+        alertify.confirm(
+          'Reload Datasource',
+          'The database host has been change, will you like to reload data ?',
+          this.fetchData,
+          () => (this.ignoreHostChange = false)
         )
-        if (retry) {
-          this.fetchData()
-        }
-      } else {
-        this.ignoreHostChange = false
       }
     }
   },
   created() {
+
     if (!this.isFirstTime) {
       this.fetchData().then()
     } else {
@@ -124,7 +117,10 @@ export default {
         this.isFirstTime = false
         this.fetchData()
       } else {
-        alert('Please I need your name and the host IP')
+        alertify.alert(
+          'Name required',
+          'Please I need your name and the host IP'
+        )
       }
     },
     async fetchData() {
@@ -147,16 +143,29 @@ export default {
           this.$store.commit('invoice/add', new Invoice(i))
         )
       } catch (e) {
-        const retry = confirm(
-          'Oops\n it seem like the database is not available at this time. \n Do you wish to try again ?'
-        )
+        alertify.confirm(
+          'Datasource error',
+          'Oops\n it seem like the database is not available at this time. \n Do you wish to try again ?',
 
-        if (retry) {
-          this.fetchData()
-        } else {
-          this.$router.push('/medica/setting')
-        }
+          this.fetchData,
+
+          () => this.$router.push('/medica/setting')
+        )
       }
+    }
+  },
+  head() {
+    return {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: '/alertify/css/alertify.min.css'
+        },
+        {
+          rel: 'stylesheet',
+          href: '/alertify/css/themes/semantic.min.css'
+        }
+      ]
     }
   }
 }

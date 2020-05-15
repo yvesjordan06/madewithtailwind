@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "alertifyjs": "^1.13.1",
     "chart.js": "^2.9.3",
     "nuxt": "^2.0.0",
     "nuxt-purgecss": "^0.2.1",

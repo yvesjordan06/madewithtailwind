@@ -33,7 +33,7 @@
           >
           <span class="w-10/12">N/A</span>
         </div>
-        <button class="mt-4 py-4 px-8 shadow bg-green-500 font-bold text-white">
+        <button class="mt-4 py-4 px-8 shadow bg-green-500 font-bold text-white" @click="checkupdate">
           Check for updates
         </button>
       </div>
@@ -44,30 +44,27 @@
           <div class="w-1/3 px-4 contact-card">
             <div class="shadow-lg py-4 rounded-lg w-full">
               <div
-                class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden"
+                class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden bg-cover bg-center"
+                style="background-image: url('https://github.com/Emileking.png')"
               ></div>
-              <p class="text-center mt-2 font-bold">Hiro Hamada</p>
+              <p class="text-center mt-2 font-bold text-gray-700">Backend Developper</p>
+              <p class="text-center mt-2 font-bold">Émile Djida</p>
               <p class="text-center mt-2 text-gray-600 text-sm">
-                +237 694842185
+                +237 6947 6477 3
               </p>
               <p class="text-center mt-1 text-gray-600 text-sm">
                 Cameroon, Yaoundé
               </p>
               <div class="flex mt-4 px-4 justify-center justify-around">
                 <a
-                  href="#"
-                  class="w-8 h-8 rounded-full  bg-blue-800 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-facebook"
-                  targer="blank"
-                ></a>
-                <a
-                  href="#"
+                  href="https://t.me/EmileDG"
                   class="w-8 h-8 rounded-full  bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram"
-                  targer="blank"
+                  target="blank"
                 ></a>
                 <a
-                  href="#"
+                  href="https://github.com/Emileking"
                   class="w-8 h-8 rounded-full  bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git"
-                  targer="blank"
+                  target="blank"
                 ></a>
               </div>
             </div>
@@ -75,9 +72,11 @@
           <div class="w-1/3 px-4 contact-card">
             <div class="shadow-lg py-4 rounded-lg w-full">
               <div
-                class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden"
+                class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden bg-cover bg-center"
+                style="background-image: url('https://github.com/yvesjordan06.png')"
               ></div>
-              <p class="text-center mt-2 font-bold">Hiro Hamada</p>
+              <p class="text-center mt-2 font-bold text-gray-700">Frontend Developper</p>
+              <p class="text-center mt-2 font-bold">Jordan Nguejip</p>
               <p class="text-center mt-2 text-gray-600 text-sm">
                 +237 694842185
               </p>
@@ -85,20 +84,16 @@
                 Cameroon, Yaoundé
               </p>
               <div class="flex mt-4 px-4 justify-center justify-around">
+
                 <a
-                  href="#"
-                  class=" rounded-full w-8 h-8 bg-blue-800 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-facebook"
-                  targer="blank"
-                ></a>
-                <a
-                  href="#"
+                  href="https://t.me/hirohamada4"
                   class=" rounded-full w-8 h-8 bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram"
-                  targer="blank"
+                  target="blank"
                 ></a>
                 <a
-                  href="#"
+                  href="https://github.com/yvesjordan06"
                   class=" rounded-full w-8 h-8 bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git"
-                  targer="blank"
+                  target="blank"
                 ></a>
               </div>
             </div>
@@ -106,31 +101,29 @@
           <div class="w-1/3 px-4 contact-card">
             <div class="shadow-lg py-4 rounded-lg w-full">
               <div
-                class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden"
+                class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden bg-cover bg-center"
+                style="background-image: url('https://hobbydb-production.s3.amazonaws.com/processed_uploads/subject_photo/subject_photo/image/27617/1498857223-8014-9485/daova_large.jpeg')"
               ></div>
-              <p class="text-center mt-2 font-bold">Hiro Hamada</p>
+              <p class="text-center mt-2 font-bold text-gray-700">General Supervisor</p>
+              <p class="text-center mt-2 font-bold">Pierre Titcheu</p>
               <p class="text-center mt-2 text-gray-600 text-sm">
-                +237 694842185
+                +237 6729 2673 4
               </p>
               <p class="text-center mt-1 text-gray-600 text-sm">
                 Cameroon, Yaoundé
               </p>
               <div class="flex mt-4 px-4 justify-center justify-around">
+
                 <a
-                  href="#"
-                  class="w-8 h-8 rounded-full  bg-blue-800 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-facebook"
-                  targer="blank"
-                ></a>
-                <a
-                  href="#"
+                  href="https://t.me/TYPW01"
                   class="w-8 h-8 rounded-full  bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram"
-                  targer="blank"
+                  target="blank"
                 ></a>
-                <a
+               <!-- <a
                   href="#"
                   class="w-8 h-8 rounded-full  bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git"
-                  targer="blank"
-                ></a>
+                  target="blank"
+                ></a>-->
               </div>
             </div>
           </div>
@@ -146,8 +139,12 @@ export default {
   layout: 'medica',
   methods: {
     hidden() {
-      alert('Easter egg found! Be careful')
-      this.$router.push('/medica/about/generator')
+      alertify.alert('Easter Egg', 'Easter egg found! Be careful', () =>
+        this.$router.push('/medica/about/generator')
+      )
+    },
+    checkupdate(){
+      alertify.message('You are on the latest version')
     }
   }
 }

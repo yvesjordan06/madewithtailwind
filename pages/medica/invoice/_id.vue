@@ -101,7 +101,8 @@
           :disabled="sending"
           @click.prevent="deleteInvoice"
         >
-          {{deleting? 'Deleting...': 'Delete'}} <span class="mdi mdi-delete"></span>
+          {{ deleting ? 'Deleting...' : 'Delete' }}
+          <span class="mdi mdi-delete"></span>
         </button>
 
         <button
@@ -171,24 +172,31 @@ export default {
   },
 
   methods: {
-    async deleteInvoice() {
-      if (confirm('Do you really want to delete? \n THIS IS NOT REVERSIBLE')) {
-        this.deleting = true
-        try {
-          const ip = await this.$axios.$delete(
-            `${this.host}/delete/invoice/${this.invoice.invoice_no}`
-          )
+    deleteInvoice() {
+      alertify.confirm(
+        'Invoice Delete',
+        'Do you really want to delete? \n THIS IS NOT REVERSIBLE',
+        async () => {
+          this.deleting = true
+          try {
+            const ip = await this.$axios.$delete(
+              `${this.host}/delete/invoice/${this.invoice.invoice_no}`
+            )
 
-          this.$store.commit('invoice/deleteInvoice', this.invoice)
-          alert('Deleted Successfully')
-          console.log(ip)
-        } catch (e) {
-          console.log(e)
-          alert(`${e} occurred`)
-        } finally {
-          this.deleting = false
-        }
-      }
+            this.$store.commit('invoice/deleteInvoice', this.invoice)
+            alertify.success('Invoice deleted.')
+            this.$router.push({
+              path: '/medica/invoice'
+            })
+            console.log(ip)
+          } catch (e) {
+            console.log(e)
+            alertify.error('Could not delete invoice at this time')
+          } finally {
+            this.deleting = false
+          }
+        }, null
+      )
     },
     async fetchSomething() {
       if (
@@ -208,11 +216,11 @@ export default {
           )
           this.ip = ip
           this.$store.commit('invoice/updateInvoice', payload)
-          alert('Updated Successfully')
+          alertify.success('invoice updated successfully')
           console.log(ip)
         } catch (e) {
           console.log(e)
-          alert(`${e} occurred`)
+          alertify.error('Could not update invoice')
         } finally {
           this.sending = false
           this.editActive = false

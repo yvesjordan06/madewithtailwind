@@ -161,7 +161,10 @@ export default {
   methods: {
     async fetchSomething() {
       if (!this.invoice.invoice_no) {
-        alert('Please an invoice number is needed to proceed')
+        alertify.alert(
+          'Missing data',
+          'Please an invoice number is needed to proceed'
+        )
         return
       }
       this.sending = true
@@ -169,7 +172,10 @@ export default {
         let batch
         for (batch of this.batches) {
           if (!batch.batch_no) {
-            alert('Please a batch number is needed for every batch')
+            alertify.alert(
+              'Missing data',
+              'Please a batch number is needed for every batch'
+            )
             return
           }
           console.log(batch.mfg_date)
@@ -181,7 +187,11 @@ export default {
             ...this.invoice,
             invoice_date: convertToDate(this.invoice.invoice_date)
           },
-          batches: this.batches.map(x => ({...x, quantity: Number(x.quantity), num_of_ships: Number(x.num_of_ships)}))
+          batches: this.batches.map((x) => ({
+            ...x,
+            quantity: Number(x.quantity),
+            num_of_ships: Number(x.num_of_ships)
+          }))
         })
         this.ip = ip
         this.$store.commit(
@@ -191,11 +201,28 @@ export default {
             batches: this.batches
           })
         )
-        alert('Added Successfully')
+        alertify.confirm(
+          'Added successfully',
+          'Invoice added Successfully, Do you wish to add another ?',
+          () => {
+            this.invoice = {
+              delivery: '',
+              exporter: '',
+              stockage: '',
+              vessel: '',
+              invoice_date: '2020-04-01',
+              invoice_no: ''
+            }
+            this.batches = []
+          },
+          () => {
+            this.$router.push('/medica/invoice')
+          }
+        )
         console.log(ip)
       } catch (e) {
         console.log(e)
-        alert(`${e.message} occurred`)
+        alertify.error('Could not add invoice, Please try again')
       } finally {
         this.sending = false
       }
