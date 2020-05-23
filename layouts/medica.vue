@@ -159,11 +159,11 @@ export default {
       link: [
         {
           rel: 'stylesheet',
-          href: '/alertify/css/alertify.min.css'
+          href: 'alertify/css/alertify.min.css'
         },
         {
           rel: 'stylesheet',
-          href: '/alertify/css/themes/semantic.min.css'
+          href: 'alertify/css/themes/semantic.min.css'
         }
       ]
     }

@@ -151,6 +151,15 @@ export const mutations = {
     state.invoices = state.invoices.filter(
       (x) => x.invoice_no !== updatedInvoice.invoice_no
     )
+
+    const batches = updatedInvoice.batches.map((e) => e.batch_no)
+
+    state.distributions.forEach((x) => {
+      x.distributions = x.distributions.filter(
+        (di) => !batches.includes(di.batch_no)
+      )
+    })
+    state.distributions = [...state.distributions]
   },
   deleteBatch(state, batch) {
     const invoice = state.invoices.find(
@@ -159,6 +168,13 @@ export const mutations = {
     invoice.batches = invoice.batches.filter(
       (b) => b.batch_no !== batch.batch_no
     )
+
+    state.distributions.forEach((x) => {
+      x.distributions = x.distributions.filter(
+        (di) => di.batch_no !== batch.batch_no
+      )
+    })
+    state.distributions = [...state.distributions]
 
     state.invoices = [...state.invoices]
   },
@@ -236,9 +252,7 @@ export const getters = {
   getBatch: (_, getters) => (id) => {
     console.log(id)
     console.log(getters.allBatches)
-    return getters.allBatches.find(
-      (batch) => batch.batch_no === id
-    )
+    return getters.allBatches.find((batch) => batch.batch_no === id)
   },
   getDistributionOfBatch: (state) => (id) => {
     const results = []
