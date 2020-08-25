@@ -3,7 +3,7 @@ export default {
   mode: 'spa',
   router: {
     base: '/',
-    //mode: 'hash'
+    mode: 'hash',
   },
   /*
    ** Headers of the page
@@ -16,11 +16,11 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: process.env.npm_package_description || '',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [{ src: 'alertify/alertify.min.js' }]
+    script: [{ src: 'alertify/alertify.min.js' }],
   },
   /*
    ** Customize the progress-bar color
@@ -40,7 +40,7 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
   ],
   /*
    ** Nuxt.js modules
@@ -49,7 +49,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     'nuxt-purgecss',
-    'nuxtjs-mdi-font'
+    'nuxtjs-mdi-font',
 
     // Relative to your project srcDir
   ],
@@ -70,6 +70,6 @@ export default {
      ** You can extend webpack config here
      */
     extractCSS: true,
-    extend(config, ctx) {}
-  }
+    extend(config, ctx) {},
+  },
 }

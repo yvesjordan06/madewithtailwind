@@ -17,7 +17,7 @@
         </div>
         <div class="flex mt-4">
           <span class="w-2/12 font-bold text-gray-700 uppercase">Version:</span>
-          <span class="w-10/12 font-mono">1.0.0 Beta</span>
+          <span class="w-10/12 font-mono">1.0.1 Stable</span>
         </div>
         <div class="flex mt-4">
           <span class="w-2/12 font-bold text-gray-700">OS:</span>
@@ -33,7 +33,10 @@
           >
           <span class="w-10/12">N/A</span>
         </div>
-        <button class="mt-4 py-4 px-8 shadow bg-green-500 font-bold text-white" @click="checkupdate">
+        <button
+          class="mt-4 py-4 px-8 shadow bg-green-500 font-bold text-white"
+          @click="checkupdate"
+        >
           Check for updates
         </button>
       </div>
@@ -47,7 +50,9 @@
                 class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden bg-cover bg-center"
                 style="background-image: url('https://github.com/Emileking.png')"
               ></div>
-              <p class="text-center mt-2 font-bold text-gray-700">Backend Developper</p>
+              <p class="text-center mt-2 font-bold text-gray-700">
+                Backend Developper
+              </p>
               <p class="text-center mt-2 font-bold">Émile Djida</p>
               <p class="text-center mt-2 text-gray-600 text-sm">
                 +237 6947 6477 3
@@ -75,7 +80,9 @@
                 class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden bg-cover bg-center"
                 style="background-image: url('https://github.com/yvesjordan06.png')"
               ></div>
-              <p class="text-center mt-2 font-bold text-gray-700">Frontend Developper</p>
+              <p class="text-center mt-2 font-bold text-gray-700">
+                Frontend Developper
+              </p>
               <p class="text-center mt-2 font-bold">Jordan Nguejip</p>
               <p class="text-center mt-2 text-gray-600 text-sm">
                 +237 694842185
@@ -84,7 +91,6 @@
                 Cameroon, Yaoundé
               </p>
               <div class="flex mt-4 px-4 justify-center justify-around">
-
                 <a
                   href="https://t.me/hirohamada4"
                   class=" rounded-full w-8 h-8 bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram"
@@ -104,7 +110,9 @@
                 class="mx-auto w-32 h-32 bg-gray-500 rounded-full overflow-hidden bg-cover bg-center"
                 style="background-image: url('https://hobbydb-production.s3.amazonaws.com/processed_uploads/subject_photo/subject_photo/image/27617/1498857223-8014-9485/daova_large.jpeg')"
               ></div>
-              <p class="text-center mt-2 font-bold text-gray-700">General Supervisor</p>
+              <p class="text-center mt-2 font-bold text-gray-700">
+                General Supervisor
+              </p>
               <p class="text-center mt-2 font-bold">Pierre Titcheu</p>
               <p class="text-center mt-2 text-gray-600 text-sm">
                 +237 6729 2673 4
@@ -113,13 +121,12 @@
                 Cameroon, Yaoundé
               </p>
               <div class="flex mt-4 px-4 justify-center justify-around">
-
                 <a
                   href="https://t.me/TYPW01"
                   class="w-8 h-8 rounded-full  bg-blue-500 text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-telegram"
                   target="blank"
                 ></a>
-               <!-- <a
+                <!-- <a
                   href="#"
                   class="w-8 h-8 rounded-full  bg-black text-white overflow-hidden flex justify-center items-center text-2xl mdi mdi-git"
                   target="blank"
@@ -143,7 +150,7 @@ export default {
         this.$router.push('/medica/about/generator')
       )
     },
-    checkupdate(){
+    checkupdate() {
       alertify.message('You are on the latest version')
     }
   }

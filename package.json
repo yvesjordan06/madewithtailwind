@@ -1,7 +1,7 @@
 {
-  "name": "madewithtailwind",
-  "version": "1.0.0",
-  "description": "A curated list of component, templates, layoute and website build with tailwind css",
+  "name": "cename",
+  "version": "1.0.1",
+  "description": "CENAME Invoice Manager",
   "author": "yvesjordan06",
   "private": true,
   "scripts": {
@@ -12,6 +12,9 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@babel/compat-data": "^7.11.0",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
     "@nuxtjs/axios": "^5.3.6",
     "alertifyjs": "^1.13.1",
     "chart.js": "^2.9.3",
